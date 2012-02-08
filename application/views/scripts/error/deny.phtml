@@ -1,0 +1,25 @@
+<div class="container_24">
+    <div class="wrapper">
+
+        <h3><?=$this->translate("You don't have access to this page");?></h3>
+            <br />
+            <p>
+                <b>
+                <?=$this->translate("Access to view this page, is limited by the administrator");?><br />
+                <?=$this->translate("You can do the following");?>:<br /><br />
+                </b>
+            </p>
+            <ul class="list1">
+                <? if (!$this->isLogin) { ?>
+                    <li><?=$this->translate("try to pass");?>
+                        <a href="<?=$this->url(array('controller'=>'auth','action'=>'login'));?>"><?=$this->translate("authorization");?></a>
+                        <?=$this->translate("and back to this page");?>
+                    </li>
+                <? } ?>
+                <li><?=$this->translate("back to");?> <a href="/"><?=$this->translate("main's page");?></a></li>
+                <li><a href="<?=$this->url(array('controller'=>'contact','action'=>'send'));?>"><?=$this->translate("contact with administrator");?></a></li>
+            </ul>
+        <br /><br />
+
+    </div>
+</div>

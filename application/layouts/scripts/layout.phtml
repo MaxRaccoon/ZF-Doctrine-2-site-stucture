@@ -1,0 +1,39 @@
+<?php
+$this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
+$this->headTitle()->setSeparator(' - ');
+$this->headTitle( $this->translate("Site Name") );
+$this->headTitle( $this->PageTitle );
+echo $this->doctype('XHTML1_TRANSITIONAL');
+?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <?php echo $this->headMeta() . "\n"; ?>
+    <?php echo $this->headTitle() . "\n"; ?>
+    <?php
+
+   	?>
+   	<?php echo $this->headLink() . "\n"; ?>
+	<?php echo $this->headScript() . "\n"; ?>
+
+</head>
+<body>
+
+
+    <div class="user_block">
+        <?php echo $this->AuthBlock();?>
+    </div>
+
+    <div class="content">
+        <?php echo $this->content; ?>
+    </div>
+
+    <div id="footer">
+        <?php if ($this->managementMenu) { ?>
+        <div class="managementMenu">
+            <?php echo $this->navigation()->menu($this->managementMenu)->setPartial('bottomMenu.phtml');; ?>
+        </div>
+        <?php } ?>
+    </div>
+
+</body>
+</html>

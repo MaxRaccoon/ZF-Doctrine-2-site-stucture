@@ -1,0 +1,12 @@
+<table class="sf-menu">
+    <tr>
+        <?php
+            foreach ( $this->container AS $page )
+            {
+        ?>
+        <td <?php if ($page->isActive(true) ){ echo 'class="active"'; } ?>><?php echo $this->menu()->htmlify($page); ?></td>
+        <?php
+            }
+        ?>
+    </tr>
+</table>

@@ -1,0 +1,16 @@
+
+Scalpel version 1.60 audit file
+Started at Tue Feb  7 23:45:29 2012
+Command line:
+scalpel /home/raccoon/web/default.zf/ -o /home/raccoon/web/default.zf/recover 
+
+Output directory: /home/raccoon/web/default.zf/recover
+Configuration file: /etc/scalpel/scalpel.conf
+
+Opening target ""
+
+The following files were carved:
+File		  Start			Chop		Length		Extracted From
+
+
+Completed at Tue Feb  7 23:45:29 2012

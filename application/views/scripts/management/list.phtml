@@ -1,0 +1,37 @@
+<div class="managment_list">
+    <h3><?php echo $this->translate($this->list->getTitle()); ?></h3>
+    <a href="<?php echo $this->url(array('controller'=>$this->list->getControllerName(),'action'=>'add'), 'default');?>"><?php echo $this->translate("Add new item"); ?></a>
+    <?php if ( $this->list->getCount() == 0 ) { ?>
+    <div><?php echo $this->translate("The list is empty");?></div>
+    <?php } else { ?>
+    <table class="list">
+        <thead>
+            <?php foreach ($this->list->getTitles() AS $title) { ?>
+            <th><?php echo $this->translate($title); ?></th>
+            <?php } ?>
+        </thead>
+        <tbody>
+            <?php foreach ($this->list->getList() AS $row) { ?>
+            <tr>
+                <?php foreach ($row AS $key=>$value) { ?>
+                <td><?php
+                        if ( substr($key, 0, 1) == "#" )
+                        {
+                            $action = substr($key, 1);
+                            echo "<a href='" . $this->url(array('controller'=>$this->list->getControllerName(),'action'=>$action, 'ID'=>(int)$value), 'list_' . $action) . "'>";
+                            echo $this->translate(ucfirst($action));
+                            echo "</a>";
+                        }
+                        else
+                        {
+                            echo $value;
+                        }
+                ?>
+                </td>
+                <?php } ?>
+            </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+    <?php } ?>
+</div>

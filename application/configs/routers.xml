@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes>
+
+        <login type="Zend_Controller_Router_Route">
+            <route>login</route>
+            <defaults>
+                <controller>auth</controller>
+                <action>login</action>
+            </defaults>
+        </login>
+
+        <logout type="Zend_Controller_Router_Route">
+            <route>logout</route>
+            <defaults>
+                <controller>auth</controller>
+                <action>logout</action>
+            </defaults>
+        </logout>
+
+        <page_not_found type="Zend_Controller_Router_Route">
+            <route>404.html</route>
+            <defaults>
+                <controller>error</controller>
+                <action>notfound</action>
+            </defaults>
+        </page_not_found>
+
+        <list_edit type="Zend_Controller_Router_Route">
+            <route>:controller/edit/:ID</route>
+            <defaults>
+                <controller>:controller</controller>
+                <action>edit</action>
+            </defaults>
+        </list_edit>
+    
+
+</routes>
