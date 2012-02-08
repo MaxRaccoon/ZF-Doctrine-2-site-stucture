@@ -1,5 +1,5 @@
 <?php
-require 'library/Doctrine2/ORM/Tools/Setup.php';
+require 'library/Doctrine/ORM/Tools/Setup.php';
 
 // Setup Autoloader (1)
 Doctrine\ORM\Tools\Setup::registerAutoloadPEAR();
@@ -12,13 +12,13 @@ $classLoader->register();
 
 $config = new \Doctrine\ORM\Configuration();
 
-$driverImpl = new \Doctrine\ORM\Mapping\Driver\YamlDriver("/home/raccoon/web/default.zf/library/ZF/yml-mapping/");
+$driverImpl = new \Doctrine\ORM\Mapping\Driver\YamlDriver("/home/raccoon/web/default.zf/library/ZF/Mapping/");
 //$driverImpl = $config->newDefaultAnnotationDriver(array("/home/raccoon/web/default.zf/library/ZF/Entity"));
 //$driverImpl->setFileExtension(".yml");
 $config->setMetadataDriverImpl($driverImpl);
 //$config->getMetadataDriverImpl();
 
-$config->setEntityNamespaces(array('ZF/Model/Entity'));
+$config->setEntityNamespaces(array('ZF/Model/Entities'));
 
 $config->setProxyDir('library/ZF/Entity/Proxy');
 $config->setProxyNamespace('ZF/Entity/Proxy');
