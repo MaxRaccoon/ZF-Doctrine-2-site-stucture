@@ -73,7 +73,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
     public function _initAutoloader()
     {
-        require_once APPLICATION_PATH . '/../library/Doctrine2/Common/ClassLoader.php';
+        require_once APPLICATION_PATH . '/../library/Doctrine/Common/ClassLoader.php';
 
         $autoloader = \Zend_Loader_Autoloader::getInstance();
 
@@ -94,7 +94,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $Acl = new Zend_Acl();
         $em = \Zend_Registry::get('doctrine')->getEntityManager();
 
-        foreach ( $em->getRepository('\ZF\Entity\AclRole')->findAll() AS  $AclRole )
+        foreach ( $em->getRepository('\ZF\Entites\AclRole')->findAll() AS  $AclRole )
         {
 			if ($Acl->hasRole($AclRole)) continue;
 
@@ -137,7 +137,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             $em = \Zend_Registry::get('doctrine')->getEntityManager();
 
             $pages = array();
-            foreach ( $em->getRepository('\ZF\Entity\ManagementMenuRel')->findByAclRole($user->getAclrole()->getId()) AS  $Menu )
+            foreach ( $em->getRepository('\ZF\Entites\ManagementMenuRel')->findByAclRole($user->getAclrole()->getId()) AS  $Menu )
             {
 				$pages[] = array('controller' => $Menu->getManagementMenu()->getAclController()->getName(),
 	                				'action' => ( is_null($Menu->getManagementMenu()->getAclAction()) ? 'index' : $Menu->getManagementMenu()->getAclAction()->getName()),
