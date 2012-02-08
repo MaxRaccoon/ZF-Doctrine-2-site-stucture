@@ -1,5 +1,5 @@
 <?php
-require 'library/Doctrine/ORM/Tools/Setup.php';
+require 'library/Doctrine2/ORM/Tools/Setup.php';
 
 // Setup Autoloader (1)
 Doctrine\ORM\Tools\Setup::registerAutoloadPEAR();
