@@ -1,0 +1,40 @@
+AclGroupDeny:
+  type: entity
+  table: acl_group_deny
+  fields:
+    id:
+      id: true
+      type: integer
+      unsigned: false
+      nullable: false
+      generator:
+        strategy: IDENTITY
+  oneToOne:
+    aclController:
+      targetEntity: AclController
+      cascade: {  }
+      mappedBy: null
+      inversedBy: null
+      joinColumns:
+        acl_controller_id:
+          referencedColumnName: id
+      orphanRemoval: false
+    aclAction:
+      targetEntity: AclAction
+      cascade: {  }
+      mappedBy: null
+      inversedBy: null
+      joinColumns:
+        acl_action_id:
+          referencedColumnName: id
+      orphanRemoval: false
+    aclRole:
+      targetEntity: AclRole
+      cascade: {  }
+      mappedBy: null
+      inversedBy: null
+      joinColumns:
+        acl_role_id:
+          referencedColumnName: id
+      orphanRemoval: false
+  lifecycleCallbacks: {  }

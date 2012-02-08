@@ -1,0 +1,40 @@
+ManagementMenu:
+  type: entity
+  table: management_menu
+  fields:
+    id:
+      id: true
+      type: integer
+      unsigned: false
+      nullable: false
+      generator:
+        strategy: IDENTITY
+    name:
+      type: string
+      length: 100
+      fixed: false
+      nullable: false
+    isDeleted:
+      type: boolean
+      nullable: false
+      column: is_deleted
+  oneToOne:
+    aclController:
+      targetEntity: AclController
+      cascade: {  }
+      mappedBy: null
+      inversedBy: null
+      joinColumns:
+        acl_controller_id:
+          referencedColumnName: id
+      orphanRemoval: false
+    aclAction:
+      targetEntity: AclAction
+      cascade: {  }
+      mappedBy: null
+      inversedBy: null
+      joinColumns:
+        acl_action_id:
+          referencedColumnName: id
+      orphanRemoval: false
+  lifecycleCallbacks: {  }

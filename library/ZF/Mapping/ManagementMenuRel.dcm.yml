@@ -1,0 +1,31 @@
+ManagementMenuRel:
+  type: entity
+  table: management_menu_rel
+  fields:
+    id:
+      id: true
+      type: integer
+      unsigned: false
+      nullable: false
+      generator:
+        strategy: IDENTITY
+  oneToOne:
+    managementMenu:
+      targetEntity: ManagementMenu
+      cascade: {  }
+      mappedBy: null
+      inversedBy: null
+      joinColumns:
+        management_menu_id:
+          referencedColumnName: id
+      orphanRemoval: false
+    aclRole:
+      targetEntity: AclRole
+      cascade: {  }
+      mappedBy: null
+      inversedBy: null
+      joinColumns:
+        acl_role_id:
+          referencedColumnName: id
+      orphanRemoval: false
+  lifecycleCallbacks: {  }

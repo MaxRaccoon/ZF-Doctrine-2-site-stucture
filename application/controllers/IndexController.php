@@ -22,7 +22,7 @@ class IndexController extends Zend_Controller_Action
         try
         {
             $role = $this->em->getRepository('\ZF\Entity\AclRole')->find(3);
-            $user = new \ZF\Entity\User;
+            $user = new \ZF\Entities\User;
             $user->setEmail('admin@default.zf');
             $user->setPassword('admin');
             $user->setAclRole($role);

@@ -1,0 +1,31 @@
+NewsTagRel:
+  type: entity
+  table: news_tag_rel
+  fields:
+    id:
+      id: true
+      type: integer
+      unsigned: false
+      nullable: false
+      generator:
+        strategy: IDENTITY
+  oneToOne:
+    news:
+      targetEntity: News
+      cascade: {  }
+      mappedBy: null
+      inversedBy: null
+      joinColumns:
+        news_id:
+          referencedColumnName: id
+      orphanRemoval: false
+    tag:
+      targetEntity: Tags
+      cascade: {  }
+      mappedBy: null
+      inversedBy: null
+      joinColumns:
+        tag_id:
+          referencedColumnName: id
+      orphanRemoval: false
+  lifecycleCallbacks: {  }

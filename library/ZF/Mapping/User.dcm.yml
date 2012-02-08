@@ -1,0 +1,53 @@
+User:
+  type: entity
+  table: user
+  fields:
+    id:
+      id: true
+      type: integer
+      unsigned: false
+      nullable: false
+      generator:
+        strategy: IDENTITY
+    email:
+      type: string
+      length: 255
+      fixed: false
+      nullable: false
+    password:
+      type: string
+      length: 250
+      fixed: false
+      nullable: false
+    nickname:
+      type: string
+      length: 200
+      fixed: false
+      nullable: false
+    firstName:
+      type: string
+      length: 100
+      fixed: false
+      nullable: false
+      column: first_name
+    lastName:
+      type: string
+      length: 100
+      fixed: false
+      nullable: false
+      column: last_name
+    isDeleted:
+      type: boolean
+      nullable: false
+      column: is_deleted
+  oneToOne:
+    aclRole:
+      targetEntity: AclRole
+      cascade: {  }
+      mappedBy: null
+      inversedBy: null
+      joinColumns:
+        acl_role:
+          referencedColumnName: id
+      orphanRemoval: false
+  lifecycleCallbacks: {  }

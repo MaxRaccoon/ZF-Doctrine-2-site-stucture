@@ -1,0 +1,45 @@
+News:
+  type: entity
+  table: news
+  fields:
+    id:
+      id: true
+      type: integer
+      unsigned: false
+      nullable: false
+      generator:
+        strategy: IDENTITY
+    dtCreate:
+      type: datetime
+      nullable: false
+      column: dt_create
+    dtUpdate:
+      type: datetime
+      nullable: false
+      column: dt_update
+    title:
+      type: string
+      length: 250
+      fixed: false
+      nullable: false
+    anons:
+      type: text
+      nullable: false
+    text:
+      type: text
+      nullable: false
+    isDeleted:
+      type: boolean
+      nullable: false
+      column: is_deleted
+  oneToOne:
+    author:
+      targetEntity: User
+      cascade: {  }
+      mappedBy: null
+      inversedBy: null
+      joinColumns:
+        author_id:
+          referencedColumnName: id
+      orphanRemoval: false
+  lifecycleCallbacks: {  }

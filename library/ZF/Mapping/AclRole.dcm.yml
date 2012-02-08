@@ -1,0 +1,31 @@
+AclRole:
+  type: entity
+  table: acl_role
+  fields:
+    id:
+      id: true
+      type: integer
+      unsigned: false
+      nullable: false
+      generator:
+        strategy: IDENTITY
+    name:
+      type: string
+      length: 100
+      fixed: false
+      nullable: false
+    isDeleted:
+      type: boolean
+      nullable: false
+      column: is_deleted
+  oneToOne:
+    parent:
+      targetEntity: AclRole
+      cascade: {  }
+      mappedBy: null
+      inversedBy: null
+      joinColumns:
+        parent_id:
+          referencedColumnName: id
+      orphanRemoval: false
+  lifecycleCallbacks: {  }

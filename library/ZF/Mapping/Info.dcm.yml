@@ -1,0 +1,24 @@
+Info:
+  type: entity
+  table: info
+  fields:
+    id:
+      id: true
+      type: integer
+      unsigned: false
+      nullable: false
+      generator:
+        strategy: IDENTITY
+    infoKey:
+      type: string
+      length: 50
+      fixed: false
+      nullable: false
+      column: info_key
+    infoValue:
+      type: string
+      length: 250
+      fixed: false
+      nullable: false
+      column: info_value
+  lifecycleCallbacks: {  }
