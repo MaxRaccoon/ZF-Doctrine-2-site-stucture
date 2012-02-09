@@ -91,7 +91,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
     protected function _initAcl()
     {
-        $Acl = new Zend_Acl();
+        $Acl = new \Zend_Acl();
         $em = \Zend_Registry::get('doctrine')->getEntityManager();
 
         foreach ( $em->getRepository('\ZF\Entites\AclRole')->findAll() AS  $AclRole )
@@ -106,7 +106,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 			{
 				if (!$Acl->hasRole($AclRole->getParent()))
                 {
-                    $Acl->addRole($AclRole->getParent());
+                    $parent = $AclRole->getParent();
+                    while (!is_null($parent))
+                    {
+                        $Acl->addRole($parent, $parent->getParent());
+                        $parent = $parent->getParent();
+                    }
                 }
 				$Acl->addRole($AclRole, $AclRole->getParent());
 			}
@@ -142,7 +147,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 				$pages[] = array('controller' => $Menu->getManagementMenu()->getAclController()->getName(),
 	                				'action' => ( is_null($Menu->getManagementMenu()->getAclAction()) ? 'index' : $Menu->getManagementMenu()->getAclAction()->getName()),
 									'resource' => $Menu->getManagementMenu()->getAclController(),
-									'privilege' => ( is_null($Menu->getManagementMenu()->getAclAction()) ? 'index' : $Menu->getManagementMenu()->getAclAction()->getResourceId() ),
+									'privilege' => ( is_null($Menu->getManagementMenu()->getAclAction()) ? 'index' : $Menu->getManagementMenu()->getAclAction()->getName() ),
 									'label' => $Menu->getManagementMenu()->getName(),
 									'route' => 'default'
 								);

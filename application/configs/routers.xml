@@ -25,6 +25,14 @@
             </defaults>
         </page_not_found>
 
+        <access_deny type="Zend_Controller_Router_Route">
+            <route>deny.html</route>
+            <defaults>
+                <controller>error</controller>
+                <action>deny</action>
+            </defaults>
+        </access_deny>
+
         <list_edit type="Zend_Controller_Router_Route">
             <route>:controller/edit/:ID</route>
             <defaults>

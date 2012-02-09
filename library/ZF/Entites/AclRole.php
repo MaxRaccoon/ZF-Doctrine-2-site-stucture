@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="acl_role")
  * @ORM\Entity
  */
-class AclRole
+class AclRole implements \Zend_Acl_Role_Interface
 {
     /**
      * @var integer $id
@@ -118,5 +118,11 @@ class AclRole
     public function getParent()
     {
         return $this->parent;
+    }
+
+
+    public function getRoleId()
+    {
+        return $this->getName();
     }
 }

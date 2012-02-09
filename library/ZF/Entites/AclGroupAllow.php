@@ -1,12 +1,13 @@
 <?php
 namespace ZF\Entites;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * AclGroupAllow
  *
  * @ORM\Table(name="acl_group_allow")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="\ZF\Repositories\AclGroupAllowRepository")
  */
 class AclGroupAllow
 {
@@ -49,6 +50,12 @@ class AclGroupAllow
      */
     private $aclAction;
 
+    public function __construct()
+    {
+        $this->aclController = new ArrayCollection();
+        $this->aclAction = new ArrayCollection();
+        $this->aclRole = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -66,7 +73,7 @@ class AclGroupAllow
      * @param AclController $aclController
      * @return AclGroupAllow
      */
-    public function setAclController(\AclController $aclController = null)
+    public function setAclController(AclController $aclController = null)
     {
         $this->aclController = $aclController;
         return $this;
@@ -88,7 +95,7 @@ class AclGroupAllow
      * @param AclRole $aclRole
      * @return AclGroupAllow
      */
-    public function setAclRole(\AclRole $aclRole = null)
+    public function setAclRole(AclRole $aclRole = null)
     {
         $this->aclRole = $aclRole;
         return $this;
@@ -110,7 +117,7 @@ class AclGroupAllow
      * @param AclAction $aclAction
      * @return AclGroupAllow
      */
-    public function setAclAction(\AclAction $aclAction = null)
+    public function setAclAction(AclAction $aclAction = null)
     {
         $this->aclAction = $aclAction;
         return $this;

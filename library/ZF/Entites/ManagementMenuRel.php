@@ -56,7 +56,7 @@ class ManagementMenuRel
      * @param ManagementMenu $managementMenu
      * @return ManagementMenuRel
      */
-    public function setManagementMenu(\ManagementMenu $managementMenu = null)
+    public function setManagementMenu(ManagementMenu $managementMenu = null)
     {
         $this->managementMenu = $managementMenu;
         return $this;
@@ -78,7 +78,7 @@ class ManagementMenuRel
      * @param AclRole $aclRole
      * @return ManagementMenuRel
      */
-    public function setAclRole(\AclRole $aclRole = null)
+    public function setAclRole(AclRole $aclRole = null)
     {
         $this->aclRole = $aclRole;
         return $this;

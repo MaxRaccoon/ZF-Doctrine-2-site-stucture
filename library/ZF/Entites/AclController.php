@@ -1,14 +1,13 @@
 <?php
 namespace ZF\Entites;
 use Doctrine\ORM\Mapping as ORM;
-
 /**
  * AclController
  *
  * @ORM\Table(name="acl_controller")
  * @ORM\Entity
  */
-class AclController
+class AclController implements \Zend_Acl_Resource_Interface
 {
     /**
      * @var integer $id
@@ -32,7 +31,7 @@ class AclController
      * @ORM\Column(name="is_deleted", type="boolean", nullable=false)
      */
     private $isDeleted;
-
+    
 
     /**
      * Get id
@@ -87,4 +86,20 @@ class AclController
     {
         return $this->isDeleted;
     }
+
+    
+    /**
+     * #####################
+     * ####NO DB############
+     * #####################
+     */
+
+    /**
+     * For Acl
+     * @return string
+     */
+    public function getResourceId()
+    {
+        return "controller-" . $this->getName();
+    }    
 }

@@ -114,7 +114,7 @@ class ManagementMenu
      * @param AclController $aclController
      * @return ManagementMenu
      */
-    public function setAclController(\AclController $aclController = null)
+    public function setAclController(AclController $aclController = null)
     {
         $this->aclController = $aclController;
         return $this;
@@ -136,7 +136,7 @@ class ManagementMenu
      * @param AclAction $aclAction
      * @return ManagementMenu
      */
-    public function setAclAction(\AclAction $aclAction = null)
+    public function setAclAction(AclAction $aclAction = null)
     {
         $this->aclAction = $aclAction;
         return $this;

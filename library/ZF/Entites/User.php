@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
  * User
  *
  * @ORM\Table(name="user")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="\ZF\Repositories\UserRepository")
  */
 class User
 {
@@ -71,6 +71,12 @@ class User
      */
     private $aclRole;
 
+    /*
+    * ################
+    * #####NO DB######
+    * ################
+    */
+    private static $_salt = "1RzgL!";
 
     /**
      * Get id
@@ -112,7 +118,7 @@ class User
      */
     public function setPassword($password)
     {
-        $this->password = $password;
+        $this->password = MD5($password . self::$_salt);
         return $this;
     }
 
@@ -220,7 +226,7 @@ class User
      * @param AclRole $aclRole
      * @return User
      */
-    public function setAclRole(\AclRole $aclRole = null)
+    public function setAclRole(AclRole $aclRole = null)
     {
         $this->aclRole = $aclRole;
         return $this;
@@ -234,5 +240,17 @@ class User
     public function getAclRole()
     {
         return $this->aclRole;
+    }
+
+
+    /*
+     * #####################
+     * #####NO DB###########
+     * #####################
+     */
+
+    public function getFullName()
+    {
+        return $this->getFirstName() . " " . $this->getLastName();
     }
 }

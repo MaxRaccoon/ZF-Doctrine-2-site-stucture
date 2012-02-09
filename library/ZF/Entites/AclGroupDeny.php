@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
  * AclGroupDeny
  *
  * @ORM\Table(name="acl_group_deny")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="\ZF\Repositories\AclGroupDenyRepository")
  */
 class AclGroupDeny
 {
@@ -66,7 +66,7 @@ class AclGroupDeny
      * @param AclController $aclController
      * @return AclGroupDeny
      */
-    public function setAclController(\AclController $aclController = null)
+    public function setAclController(AclController $aclController = null)
     {
         $this->aclController = $aclController;
         return $this;
@@ -88,7 +88,7 @@ class AclGroupDeny
      * @param AclAction $aclAction
      * @return AclGroupDeny
      */
-    public function setAclAction(\AclAction $aclAction = null)
+    public function setAclAction(AclAction $aclAction = null)
     {
         $this->aclAction = $aclAction;
         return $this;
@@ -110,7 +110,7 @@ class AclGroupDeny
      * @param AclRole $aclRole
      * @return AclGroupDeny
      */
-    public function setAclRole(\AclRole $aclRole = null)
+    public function setAclRole(AclRole $aclRole = null)
     {
         $this->aclRole = $aclRole;
         return $this;
