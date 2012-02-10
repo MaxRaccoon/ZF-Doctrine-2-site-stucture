@@ -1,14 +1,14 @@
 <?php
-namespace ZF\Entites;
+namespace ZF\Entities;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * AclAction
+ * AclRole
  *
- * @ORM\Table(name="acl_action")
+ * @ORM\Table(name="acl_role")
  * @ORM\Entity
  */
-class AclAction
+class AclRole implements \Zend_Acl_Role_Interface
 {
     /**
      * @var integer $id
@@ -33,6 +33,16 @@ class AclAction
      */
     private $isDeleted;
 
+    /**
+     * @var AclRole
+     *
+     * @ORM\OneToOne(targetEntity="AclRole")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="parent_id", referencedColumnName="id", unique=true)
+     * })
+     */
+    private $parent;
+
 
     /**
      * Get id
@@ -48,7 +58,7 @@ class AclAction
      * Set name
      *
      * @param string $name
-     * @return AclAction
+     * @return AclRole
      */
     public function setName($name)
     {
@@ -70,7 +80,7 @@ class AclAction
      * Set isDeleted
      *
      * @param boolean $isDeleted
-     * @return AclAction
+     * @return AclRole
      */
     public function setIsDeleted($isDeleted)
     {
@@ -88,11 +98,31 @@ class AclAction
         return $this->isDeleted;
     }
 
+    /**
+     * Set parent
+     *
+     * @param AclRole $parent
+     * @return AclRole
+     */
+    public function setParent(\AclRole $parent = null)
+    {
+        $this->parent = $parent;
+        return $this;
+    }
 
     /**
-     * #####################
-     * ####NO DB############
-     * #####################
+     * Get parent
+     *
+     * @return AclRole 
      */
+    public function getParent()
+    {
+        return $this->parent;
+    }
 
+
+    public function getRoleId()
+    {
+        return $this->getName();
+    }
 }

@@ -17,9 +17,8 @@
                 <td><?php
                         if ( substr($key, 0, 1) == "#" )
                         {
-                            $action = substr($key, 1);
-                            echo "<a href='" . $this->url(array('controller'=>$this->list->getControllerName(),'action'=>$action, 'ID'=>(int)$value), 'list_' . $action) . "'>";
-                            echo $this->translate(ucfirst($action));
+                            echo "<a href='" . $this->url(array('controller'=>$value['controller'],'action'=>$value['action'], 'ID'=>(int)$value['ID']), 'list_' . $value['action']) . "'>";
+                            echo $this->translate(ucfirst($value['action']));
                             echo "</a>";
                         }
                         else

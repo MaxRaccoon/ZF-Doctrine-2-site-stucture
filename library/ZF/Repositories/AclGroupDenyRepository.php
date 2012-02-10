@@ -7,10 +7,10 @@ namespace ZF\Repositories;
 class AclGroupDenyRepository extends \Doctrine\ORM\EntityRepository
 {
     /**
-     * @param \ZF\Entites\AclRole $role
+     * @param \ZF\Entities\AclRole $role
      * @return mixed
      */
-    public function getDenyForRole(\ZF\Entites\AclRole $role)
+    public function getDenyForRole(\ZF\Entities\AclRole $role)
     {
         $roles = array($role);
         $parent = $role->getParent();
@@ -21,7 +21,7 @@ class AclGroupDenyRepository extends \Doctrine\ORM\EntityRepository
         }
 
         $query = $this->_em->createQuery("SELECT d, ac, aa, r
-                                            FROM \ZF\Entites\AclGroupDeny d
+                                            FROM \ZF\Entities\AclGroupDeny d
                                             LEFT JOIN d.aclController ac
                                             LEFT JOIN d.aclAction aa
                                             LEFT JOIN d.aclRole r

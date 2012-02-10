@@ -19,10 +19,10 @@ class DoctrineAuthAdapter implements \Zend_Auth_Adapter_Interface
 	{
         $em = \Zend_Registry::get('doctrine')->getEntityManager();
         
-		$user = new \ZF\Entites\User();
-        $user->setAclRole( $em->find('\ZF\Entites\AclRole', 1) );
+		$user = new \ZF\Entities\User();
+        $user->setAclRole( $em->find('\ZF\Entities\AclRole', 1) );
 
-        if ($db_user = $em->getRepository('\ZF\Entites\User')->getUserByLoginOrEmail($this->_username))
+        if ($db_user = $em->getRepository('\ZF\Entities\User')->getUserByLoginOrEmail($this->_username))
         {
             $user->setPassword($this->_password);
             if ($user->getPassword() == $db_user->getPassword())

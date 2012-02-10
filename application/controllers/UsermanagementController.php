@@ -14,7 +14,7 @@ class UsermanagementController extends Zend_Controller_Action
     public function listAction()
     {
         $em = \Zend_Registry::get('doctrine')->getEntityManager();
-        $list = $em->getRepository('\ZF\Entity\User')->findAll();
+        $list = $em->getRepository('\ZF\Entities\User')->findAll();
         
         $this->view->list = new \ZF\View\ListView($this->getRequest()->getControllerName(),
                                                     array("id"=>"№", "Nickname"=>"Nickname", "FullName"=>"Full name", "#edit"=>"Edit"),
@@ -38,7 +38,7 @@ class UsermanagementController extends Zend_Controller_Action
 
         $em = \Zend_Registry::get('doctrine')->getEntityManager();
 
-        if ( !$user = $em->find('\ZF\Entity\User', (int)$ID) )
+        if ( !$user = $em->find('\ZF\Entities\User', (int)$ID) )
         {
             $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
         }
@@ -51,7 +51,7 @@ class UsermanagementController extends Zend_Controller_Action
                 //if aclrole be changed, get new role, and set it for user
                 if ((int)$this->_getParam("aclrole") != $user->getAclrole()->getId())
                 {
-                    $AclRole = $em->find('\ZF\Entity\AclRole', (int)$this->_getParam("aclrole"));
+                    $AclRole = $em->find('\ZF\Entities\AclRole', (int)$this->_getParam("aclrole"));
                     $user->setAclRole($AclRole);
                 }
                 

@@ -1,5 +1,5 @@
 <?php
-namespace ZF\Entites;
+namespace ZF\Entities;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

@@ -17,13 +17,13 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
         if ($emailValidator->isValid($loginOrEmail))
         {
             $query = $this->_em->createQuery("SELECT u
-                                                FROM ZF\Entites\User u
+                                                FROM ZF\Entities\User u
                                                WHERE u.email=:value");
         }
         else
         {
             $query = $this->_em->createQuery("SELECT u
-                                                FROM ZF\Entites\User u
+                                                FROM ZF\Entities\User u
                                                WHERE u.nickname=:value");
         }
         $query->setParameter("value", $loginOrEmail);

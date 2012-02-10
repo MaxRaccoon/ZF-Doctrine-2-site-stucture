@@ -29,7 +29,7 @@ class Application_Form_User extends Zend_Form
         ));
 
         $Roles = array();
-        foreach (\Zend_Registry::get('doctrine')->getEntityManager()->getRepository('\ZF\Entity\AclRole')->findAll() AS $AclRole)
+        foreach (\Zend_Registry::get('doctrine')->getEntityManager()->getRepository('\ZF\Entities\AclRole')->findAll() AS $AclRole)
         {
             if ($AclRole->getId() == 1)
             {

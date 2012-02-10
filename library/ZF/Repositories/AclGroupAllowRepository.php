@@ -7,10 +7,10 @@ namespace ZF\Repositories;
 class AclGroupAllowRepository extends \Doctrine\ORM\EntityRepository
 {
     /**
-     * @param \ZF\Entites\AclRole $role
+     * @param \ZF\Entities\AclRole $role
      * @return mixed
      */
-    public function getAllowForRole(\ZF\Entites\AclRole $role)
+    public function getAllowForRole(\ZF\Entities\AclRole $role)
     {
         $roles = array($role);
         $parent = $role->getParent();
@@ -21,7 +21,7 @@ class AclGroupAllowRepository extends \Doctrine\ORM\EntityRepository
         }
         
         $query = $this->_em->createQuery("SELECT a, ac, aa, r
-                                            FROM \ZF\Entites\AclGroupAllow a
+                                            FROM \ZF\Entities\AclGroupAllow a
                                             LEFT JOIN a.aclController ac
                                             LEFT JOIN a.aclAction aa
                                             LEFT JOIN a.aclRole r

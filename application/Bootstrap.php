@@ -3,6 +3,10 @@ use Doctrine\DBAL\Types\Type;
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
+    protected function _initSession()
+    {
+        \Zend_Session::start();
+    }
 
     protected function _initCaching()
     {
@@ -25,7 +29,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         $cache = Zend_Cache::factory('Core', 'File', $frontendOptions, $backendOptions);
 
-        Zend_Registry::set('Zend_Cache', $cache);   
+        Zend_Registry::set('Zend_Cache', $cache);
     }
 
     // Do not rename this method _initDoctrine() this will result in a circular dependency error.
@@ -94,7 +98,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $Acl = new \Zend_Acl();
         $em = \Zend_Registry::get('doctrine')->getEntityManager();
 
-        foreach ( $em->getRepository('\ZF\Entites\AclRole')->findAll() AS  $AclRole )
+        foreach ( $em->getRepository('\ZF\Entities\AclRole')->findAll() AS  $AclRole )
         {
 			if ($Acl->hasRole($AclRole)) continue;
 
@@ -142,7 +146,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             $em = \Zend_Registry::get('doctrine')->getEntityManager();
 
             $pages = array();
-            foreach ( $em->getRepository('\ZF\Entites\ManagementMenuRel')->findByAclRole($user->getAclrole()->getId()) AS  $Menu )
+            foreach ( $em->getRepository('\ZF\Entities\ManagementMenuRel')->findByAclRole($user->getAclrole()->getId()) AS  $Menu )
             {
 				$pages[] = array('controller' => $Menu->getManagementMenu()->getAclController()->getName(),
 	                				'action' => ( is_null($Menu->getManagementMenu()->getAclAction()) ? 'index' : $Menu->getManagementMenu()->getAclAction()->getName()),

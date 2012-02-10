@@ -12,8 +12,8 @@ class Plugin extends \Zend_Controller_Plugin_Abstract
     public function preDispatch(\Zend_Controller_Request_Abstract $request)
     {
         $em = \Zend_Registry::get('doctrine')->getEntityManager();
-        $controller = $em->getRepository('\ZF\Entites\AclController')->findOneByName( $request->getControllerName() );
-        $action = $em->getRepository('\ZF\Entites\AclAction')->findOneByName( $request->getActionName() );
+        $controller = $em->getRepository('\ZF\Entities\AclController')->findOneByName( $request->getControllerName() );
+        $action = $em->getRepository('\ZF\Entities\AclAction')->findOneByName( $request->getActionName() );
 
         //Get role
         $auth = \Zend_Auth::getInstance();
@@ -24,7 +24,7 @@ class Plugin extends \Zend_Controller_Plugin_Abstract
         }
         else
         {
-            $role = \Zend_Registry::get('doctrine')->getEntityManager()->find('\ZF\Entites\AclRole', 1);
+            $role = \Zend_Registry::get('doctrine')->getEntityManager()->find('\ZF\Entities\AclRole', 1);
         }
 
         //Get Acl
@@ -58,12 +58,12 @@ class Plugin extends \Zend_Controller_Plugin_Abstract
      * Create Acl relation for current role
      * @return mixed
      */
-    public function addAclResources(\Zend_Acl $acl, \ZF\Entites\AclRole $role)
+    public function addAclResources(\Zend_Acl $acl, \ZF\Entities\AclRole $role)
     {
         $em = \Zend_Registry::get('doctrine')->getEntityManager();
 
         //Group allow
-        foreach ( $em->getRepository('\ZF\Entites\AclGroupAllow')->getAllowForRole($role) AS $item )
+        foreach ( $em->getRepository('\ZF\Entities\AclGroupAllow')->getAllowForRole($role) AS $item )
         {
             if (!$acl->has($item->getAclController()))
             {
@@ -72,7 +72,7 @@ class Plugin extends \Zend_Controller_Plugin_Abstract
             $acl->allow( $role, $item->getAclController(), ( $item->getAclAction() ? $item->getAclAction()->getName() : null ) );
         }
         //Group deny
-        foreach ( $em->getRepository('\ZF\Entites\AclGroupDeny')->getDenyForRole($role) AS $item )
+        foreach ( $em->getRepository('\ZF\Entities\AclGroupDeny')->getDenyForRole($role) AS $item )
         {
             if (!$acl->has($item->getAclController()))
             {
