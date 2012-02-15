@@ -1,6 +1,7 @@
 <?php
 namespace ZF\Entities;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * User
@@ -77,6 +78,13 @@ class User
     * ################
     */
     private static $_salt = "1RzgL!";
+
+
+    function __construct()
+    {
+        $this->setIsDeleted(0);
+        $this->aclRole = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -226,7 +234,7 @@ class User
      * @param AclRole $aclRole
      * @return User
      */
-    public function setAclRole(AclRole $aclRole = null)
+    public function setAclRole(\ZF\Entities\AclRole $aclRole = null)
     {
         $this->aclRole = $aclRole;
         return $this;

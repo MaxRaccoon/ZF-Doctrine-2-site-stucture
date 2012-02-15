@@ -17,6 +17,12 @@ class Application_Form_User extends Zend_Form
              ),
         ));
 
+        $entiry = \Zend_Registry::get('doctrine')->getEntityManager()->getRepository('\ZF\Entities\User');
+        $validator = new \ZF\Validate\NoDbRecordExists($entiry,
+                                                        "findOneByNickname",
+                                                        \ZF\Validate\NoDbRecordExists::USER_NICKNAME_EXISTS);
+        $nickname->addValidator($validator);
+        
         $email = new Zend_Form_Element_Text('email', array(
             'required'    => ($type == "edit" ? false : true ),
             'label'       => $this->getView()->translate('Email'),
@@ -27,6 +33,11 @@ class Application_Form_User extends Zend_Form
                 array('EmailAddress', true, array(true)),
              ),
         ));
+
+        $validator = new \ZF\Validate\NoDbRecordExists($entiry,
+                                                        "findOneByEmail",
+                                                        \ZF\Validate\NoDbRecordExists::USER_EMAIL_EXISTS);
+        $email->addValidator($validator);
 
         $Roles = array();
         foreach (\Zend_Registry::get('doctrine')->getEntityManager()->getRepository('\ZF\Entities\AclRole')->findAll() AS $AclRole)

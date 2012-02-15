@@ -40,6 +40,14 @@
                 <action>edit</action>
             </defaults>
         </list_edit>
+
+        <list_delete type="Zend_Controller_Router_Route">
+            <route>:controller/delete/:ID</route>
+            <defaults>
+                <controller>:controller</controller>
+                <action>delete</action>
+            </defaults>
+        </list_delete>
     
 
 </routes>

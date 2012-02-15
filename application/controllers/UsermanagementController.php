@@ -5,7 +5,7 @@
  * Time: 22:16
  */
 
-class UsermanagementController extends Zend_Controller_Action
+class UsermanagementController extends \ZF\Controller\Managment
 {
     /**
      * Show user list
@@ -17,7 +17,7 @@ class UsermanagementController extends Zend_Controller_Action
         $list = $em->getRepository('\ZF\Entities\User')->findAll();
         
         $this->view->list = new \ZF\View\ListView($this->getRequest()->getControllerName(),
-                                                    array("id"=>"№", "Nickname"=>"Nickname", "FullName"=>"Full name", "#edit"=>"Edit"),
+                                                    array("id"=>"№", "Nickname"=>"Nickname", "FullName"=>"Full name", "#edit"=>"Edit", "#delete"=>"Delete"),
                                                     $list);
         $this->view->list->setTitle("Users list");
 
@@ -93,9 +93,9 @@ class UsermanagementController extends Zend_Controller_Action
     	{
     		if( $this->view->form->isValid($this->_request->getPost()) )
     		{
-    			$User = new \ZF\Entity\User();
+    			$User = new \ZF\Entities\User();
                 $em = \Zend_Registry::get('doctrine')->getEntityManager();
-                $AclRole = $em->getRepository('\ZF\Entity\AclRole')->find((int)$this->_getParam("aclrole"));
+                $AclRole = $em->getRepository('\ZF\Entities\AclRole')->find((int)$this->_getParam("aclrole"));
 
                 $password = \ZF\Auth\Plugin::generatePassword(8);
                 $User->setEmail($this->_getParam("email"));
@@ -104,13 +104,12 @@ class UsermanagementController extends Zend_Controller_Action
                 $User->setFirstName($this->_getParam("first_name"));
                 $User->setLastName($this->_getParam("last_name"));
                 $User->setPassword($password);
-
+                
                 $em->persist($User);
                 if ( is_null($em->flush()) )
                 {
-                    $SiteName = $em->getRepository('\ZF\Entity\Info')->findOneByInfoKey("SiteName")->getInfoValue();
-                    $SiteEmail = $em->getRepository('\ZF\Entity\Info')->findOneByInfoKey("SiteEmail")->getInfoValue();
-                    
+                    $SiteName = $em->getRepository('\ZF\Entities\Info')->findOneByInfoKey("SiteName")->getInfoValue();
+                    $SiteEmail = $em->getRepository('\ZF\Entities\Info')->findOneByInfoKey("SiteEmail")->getInfoValue();
                     $message = sprintf($this->view->translate("Hello, %s!"), $User->getNickname()) . "<br /><br />"
                                . sprintf( $this->view->translate("On site %s has been created account for you."), '<a href="' . $this->getFrontController()->getBaseUrl() . '">' . $this->view->translate("Site Name") . '</a>' ) . "<br />"
                                . $this->view->translate("Your login") . ": {$User->getNickname()}<br />"
@@ -137,5 +136,14 @@ class UsermanagementController extends Zend_Controller_Action
         $this->view->content = $this->view->render('management/edit.phtml');
         \ZF\View\ViewPlugin::setNoRender();
     }
-    
+
+    /**
+     * Delete user from list
+     * @return void
+     */
+    public function deleteAction()
+    {
+        $entity = \Zend_Registry::get('doctrine')->getEntityManager()->getRepository('\ZF\Entities\User');
+        return parent::delete($entity);
+    }
 }

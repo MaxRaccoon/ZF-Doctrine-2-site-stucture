@@ -83,6 +83,14 @@ class ListView
                                                                     );
                             }
                         break;
+                        case "delete":
+                            {
+                                $this->_listData[$i][$key] = array("controller"=>$this->_controllerName,
+                                                                   "action"=>"delete",
+                                                                    "ID"=>$row->getId()
+                                                                    );
+                            }
+                        break;
                     }
                 }
                 else
