@@ -1,7 +1,9 @@
 <?php
 namespace ZF\Entities;
 use Doctrine\ORM\Mapping as ORM;
-
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+    
 /**
  * News
  *
@@ -71,6 +73,12 @@ class News
      */
     private $author;
 
+
+    function __construct()
+    {
+        $this->setIsDeleted(0);
+        $this->author = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -220,7 +228,7 @@ class News
      * @param User $author
      * @return News
      */
-    public function setAuthor(\User $author = null)
+    public function setAuthor(User $author = null)
     {
         $this->author = $author;
         return $this;

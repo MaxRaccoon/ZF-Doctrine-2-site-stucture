@@ -14,7 +14,7 @@ class UsermanagementController extends \ZF\Controller\Managment
     public function listAction()
     {
         $em = \Zend_Registry::get('doctrine')->getEntityManager();
-        $list = $em->getRepository('\ZF\Entities\User')->findAll();
+        $list = $em->getRepository('\ZF\Entities\User')->findByIsDeleted(false);
         
         $this->view->list = new \ZF\View\ListView($this->getRequest()->getControllerName(),
                                                     array("id"=>"№", "Nickname"=>"Nickname", "FullName"=>"Full name", "#edit"=>"Edit", "#delete"=>"Delete"),
@@ -144,6 +144,22 @@ class UsermanagementController extends \ZF\Controller\Managment
     public function deleteAction()
     {
         $entity = \Zend_Registry::get('doctrine')->getEntityManager()->getRepository('\ZF\Entities\User');
-        return parent::delete($entity);
+        //Spacial action to user entity, in other controllers use parent::delete($entity);
+        if (!$ID = $this->getRequest()->getParam('ID', false))
+        {
+            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+        }
+
+        if ( !$object = $entity->findOneById($ID) )
+        {
+            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+        }
+
+        $em = \Zend_Registry::get('doctrine')->getEntityManager();
+        $object->setEmail($object->getEmail() . "*deleted*");
+        $object->setNickname($object->getNickname() . "*deleted*");
+        $object->setIsDeleted(true);
+        $em->flush();
+        $this->_redirect($this->view->url(array('controller'=>$this->getRequest()->getControllerName(),'action'=>'list'), 'default'));
     }
 }

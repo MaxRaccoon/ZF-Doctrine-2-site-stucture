@@ -72,6 +72,7 @@ class User
      */
     private $aclRole;
 
+
     /*
     * ################
     * #####NO DB######

@@ -4,7 +4,7 @@
  * Date: 01.02.12 23:31
  */
  
-class NewsmanagementController extends Zend_Controller_Action
+class NewsmanagementController extends \ZF\Controller\Managment
 {
     /**
      * Show news list
@@ -13,10 +13,10 @@ class NewsmanagementController extends Zend_Controller_Action
     public function listAction()
     {
         $em = \Zend_Registry::get('doctrine')->getEntityManager();
-        $list = $em->getRepository('\ZF\Entity\News')->findAll();
+        $list = $em->getRepository('\ZF\Entities\News')->findByIsDeleted(false);
 
         $this->view->list = new \ZF\View\ListView($this->getRequest()->getControllerName(),
-                                                    array("id"=>"№", "Title"=>"Title", "Anons"=>"Anons", "#edit"=>"Edit"),
+                                                    array("id"=>"№", "Title"=>"Title", "Anons"=>"Anons", "#edit"=>"Edit", "#delete"=>"Delete"),
                                                     $list);
         $this->view->list->setTitle("Users list");
 
@@ -24,6 +24,10 @@ class NewsmanagementController extends Zend_Controller_Action
         \ZF\View\ViewPlugin::setNoRender();
     }
 
+    /**
+     * Add news
+     * @return void
+     */
     public function addAction()
     {
         $this->view->form = new \Application_Form_News(null, "add");
@@ -32,35 +36,23 @@ class NewsmanagementController extends Zend_Controller_Action
     	{
     		if( $this->view->form->isValid($this->_request->getPost()) )
     		{
-    			$News = new \ZF\Entity\News();
                 $em = \Zend_Registry::get('doctrine')->getEntityManager();
+                $auth = \Zend_Auth::getInstance();
+                $user = $em->getRepository('\ZF\Entities\User')->findOneById($auth->getIdentity()->getId());
 
+    			$News = new \ZF\Entities\News();
                 $News->setTitle($this->_getParam("title"));
                 $News->setAnons($this->_getParam("anons"));
-                $News->setAclRole($AclRole);
-                $News->setFirstName($this->_getParam("first_name"));
-                $User->setLastName($this->_getParam("last_name"));
-                $User->setPassword($password);
+                $News->setText($this->_getParam("text"));
+                $News->setAuthor($user);
+                $News->setDtCreate(new \DateTime());
+                $News->setDtUpdate(new \DateTime());
 
-                $em->persist($User);
+                $em->persist($News);
                 if ( is_null($em->flush()) )
                 {
-                    $SiteName = $em->getRepository('\ZF\Entity\Info')->findOneByInfoKey("SiteName")->getInfoValue();
-                    $SiteEmail = $em->getRepository('\ZF\Entity\Info')->findOneByInfoKey("SiteEmail")->getInfoValue();
-
-                    $message = sprintf($this->view->translate("Hello, %s!"), $User->getNickname()) . "<br /><br />"
-                               . sprintf( $this->view->translate("On site %s has been created account for you."), '<a href="' . $this->getFrontController()->getBaseUrl() . '">' . $this->view->translate("Site Name") . '</a>' ) . "<br />"
-                               . $this->view->translate("Your login") . ": {$User->getNickname()}<br />"
-                               . $this->view->translate("Your password") . ": {$password}<br /><br />"
-                               . $this->view->translate("Good bye");
-
-                    $mail = new Zend_Mail('windows-1251');
-                    $mail->setBodyHtml( iconv("UTF-8", "Windows-1251",  $message) );
-                    $mail->setFrom($SiteEmail, iconv('utf8', 'cp1251', $SiteName ));
-                    $mail->addTo($User->getEmail(), iconv('utf8', 'cp1251', $User->getFullName() ));
-                    $mail->setSubject( iconv('UTF-8', 'Windows-1251', sprintf($this->view->translate("An «%s» account has been created for you!"), $SiteName) ) );
-                    $mail->send();
-
+                    //Add tags
+                    \ZF\Controller\Tags::newsAddRelations($News, $this->_getParam("tags"));
                     $this->_redirect($this->view->url(array('controller'=>$this->getRequest()->getControllerName(),'action'=>'list'), 'default'));
                 }
     		}
@@ -70,7 +62,7 @@ class NewsmanagementController extends Zend_Controller_Action
     		}
     	}
 
-        $this->view->title = $this->view->translate('Add new user');
+        $this->view->title = $this->view->translate('Add news');
         $this->view->content = $this->view->render('management/edit.phtml');        
         \ZF\View\ViewPlugin::setNoRender();
     }    
@@ -79,4 +71,15 @@ class NewsmanagementController extends Zend_Controller_Action
     {
         
     }
+
+    /**
+     * Delete user from list
+     * @return void
+     */
+    public function deleteAction()
+    {
+        $entity = \Zend_Registry::get('doctrine')->getEntityManager()->getRepository('\ZF\Entities\News');
+        $relation = \Zend_Registry::get('doctrine')->getEntityManager()->getRepository('\ZF\Entities\NewsTagRel');
+        return parent::delete($entity, $relation);
+    }    
 }

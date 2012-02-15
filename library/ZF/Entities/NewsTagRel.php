@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
  * NewsTagRel
  *
  * @ORM\Table(name="news_tag_rel")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="\ZF\Repositories\NewsTagRelRepository")
  */
 class NewsTagRel
 {
@@ -56,7 +56,7 @@ class NewsTagRel
      * @param News $news
      * @return NewsTagRel
      */
-    public function setNews(\News $news = null)
+    public function setNews(News $news = null)
     {
         $this->news = $news;
         return $this;
@@ -78,7 +78,7 @@ class NewsTagRel
      * @param Tags $tag
      * @return NewsTagRel
      */
-    public function setTag(\Tags $tag = null)
+    public function setTag(Tags $tag = null)
     {
         $this->tag = $tag;
         return $this;
