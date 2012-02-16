@@ -8,7 +8,7 @@
 class UsermanagementController extends \ZF\Controller\Managment
 {
     /**
-     * Show user list
+     * Show user listK
      * @return void
      */
     public function listAction()

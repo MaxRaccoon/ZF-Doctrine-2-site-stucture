@@ -1,7 +1,8 @@
 <?php
 namespace ZF\Entities;
 use Doctrine\ORM\Mapping as ORM;
-
+use Doctrine\Common\Collections\ArrayCollection;
+    
 /**
  * NewsTagRel
  *
@@ -39,6 +40,11 @@ class NewsTagRel
      */
     private $tag;
 
+    function __construct()
+    {
+        $this->news = new ArrayCollection();
+        $this->tag = new ArrayCollection();
+    }
 
     /**
      * Get id

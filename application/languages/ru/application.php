@@ -13,6 +13,9 @@
      //User management
      'Users list'=>'Список пользователей',
 
+     //News managment
+     'News list'=>'Список новостей',
+
      //User
      'Nickname'=>'Имя входа',
      'Full name'=>'Полное имя',
@@ -21,6 +24,7 @@
      //Action
      'Edit'=>'Редактировать',
      'Delete'=>'Удалить',
+     'Add new item'=>'Добавить позицию',
 
      //Mail
      'Hello, %s!'=>'Здравствуйте, %s!',
@@ -30,6 +34,7 @@
      'An «%s» account has been created for you!'=>'Для вас был создан аккаунт на сайте «%s»!',
      
      //errors
+     'The list is empty'=>'Список пуст',
      'User with this login have already isset!'=>'Пользователь с таким логином уже существует!',
      'User with this email have already isset!'=>'Пользователь с таким e-mail уже существует!',
      "Value is required and can't be empty"=>"Это обязательное поле, не может быть пустым!"

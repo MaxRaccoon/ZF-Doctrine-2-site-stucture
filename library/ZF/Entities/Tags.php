@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Tags
  *
  * @ORM\Table(name="tags")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="\ZF\Repositories\TagsRepository")
  */
 class Tags
 {

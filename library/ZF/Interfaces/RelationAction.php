@@ -1,10 +1,10 @@
 <?php
 /**
  * User: raccoon
- * Date: 15.02.12 14:31
+ * Date: 16.02.12 12:58
  */
 namespace ZF\Interfaces;
 interface RelationAction
 {
-    public function clear($entity);
+    public function clearRelations($entity);
 }

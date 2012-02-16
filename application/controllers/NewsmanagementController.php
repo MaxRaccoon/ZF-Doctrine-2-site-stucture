@@ -18,7 +18,7 @@ class NewsmanagementController extends \ZF\Controller\Managment
         $this->view->list = new \ZF\View\ListView($this->getRequest()->getControllerName(),
                                                     array("id"=>"№", "Title"=>"Title", "Anons"=>"Anons", "#edit"=>"Edit", "#delete"=>"Delete"),
                                                     $list);
-        $this->view->list->setTitle("Users list");
+        $this->view->list->setTitle("News list");
 
         $this->view->content = $this->view->render('management/list.phtml');
         \ZF\View\ViewPlugin::setNoRender();
@@ -69,7 +69,53 @@ class NewsmanagementController extends \ZF\Controller\Managment
 
     public function editAction()
     {
-        
+        if (!$ID = $this->getRequest()->getParam('ID', false))
+        {
+            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+        }
+
+        $em = \Zend_Registry::get('doctrine')->getEntityManager();
+
+        if ( !$news = $em->find('\ZF\Entities\News', (int)$ID) )
+        {
+            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+        }
+
+        $this->view->form = new \Application_Form_News(null, "edit");
+	    if($this->_request->isPost())
+    	{
+    		if( $this->view->form->isValid($this->_request->getPost()) )
+    		{
+                $auth = \Zend_Auth::getInstance();
+                $user = $em->getRepository('\ZF\Entities\User')->findOneById($auth->getIdentity()->getId());
+                
+                $news->setTitle($this->_getParam("title"));
+                $news->setAnons($this->_getParam("anons"));
+                $news->setText($this->_getParam("text"));
+                $news->setAuthor($user);
+                $news->setDtUpdate(new \DateTime());
+
+                if ( is_null($em->flush()) )
+                {
+                    //Edit tags
+                    \ZF\Controller\Tags::newsEditRelations($news, $this->_getParam("tags"));
+                    $this->_redirect($this->view->url(array('controller'=>$this->getRequest()->getControllerName(),'action'=>'list'), 'default'));
+                }
+            }
+    		else
+    		{
+    			$this->view->form->populate($this->_request->getPost());
+    		}
+        }
+
+        $this->view->form->populate(array('title'=>$news->getTitle(),
+                                            'anons'=>$news->getAnons(),
+                                            'text'=>$news->getText(),
+                                            'tags'=>$em->getRepository('\ZF\Entities\NewsTagRel')->getByNewsToString($news)
+                                    ));
+        $this->view->title = $this->view->translate('Edit user');
+        $this->view->content = $this->view->render('management/edit.phtml');
+        \ZF\View\ViewPlugin::setNoRender();        
     }
 
     /**
