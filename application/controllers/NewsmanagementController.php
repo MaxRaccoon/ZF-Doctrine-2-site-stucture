@@ -12,16 +12,10 @@ class NewsmanagementController extends \ZF\Controller\Managment
      */
     public function listAction()
     {
-        $em = \Zend_Registry::get('doctrine')->getEntityManager();
-        $list = $em->getRepository('\ZF\Entities\News')->findByIsDeleted(false);
-
-        $this->view->list = new \ZF\View\ListView($this->getRequest()->getControllerName(),
-                                                    array("id"=>"№", "Title"=>"Title", "Anons"=>"Anons", "#edit"=>"Edit", "#delete"=>"Delete"),
-                                                    $list);
-        $this->view->list->setTitle("News list");
-
-        $this->view->content = $this->view->render('management/list.phtml');
-        \ZF\View\ViewPlugin::setNoRender();
+        $entity_name = '\ZF\Entities\News';
+        $titles = array("id"=>"№", "Title"=>"Title", "Anons"=>"Anons", "#edit"=>"Edit", "#delete"=>"Delete");
+        $title = "News list";
+        parent::showList($entity_name, $titles, $title);
     }
 
     /**

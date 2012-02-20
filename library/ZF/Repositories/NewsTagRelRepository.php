@@ -57,7 +57,7 @@ class NewsTagRelRepository extends \Doctrine\ORM\EntityRepository implements \ZF
      * @param \ZF\Entities\News $news
      * @return mixed
      */
-    public function getTags(\ZF\Entities\News $news)
+    public function getTags($news)
     {
         $query = $this->_em->createQuery("SELECT rel, n, t
                                             FROM ZF\Entities\NewsTagRel rel
@@ -72,7 +72,7 @@ class NewsTagRelRepository extends \Doctrine\ORM\EntityRepository implements \ZF
      * @param \ZF\Entities\News $news
      * @return string
      */
-    public function getTagsInString(\ZF\Entities\News $news)
+    public function getTagsInString($news)
     {
         $tag_string = "";
         foreach ($this->getByNews($news) AS $rel)

@@ -6,21 +6,15 @@
 class PagemanagementController extends \ZF\Controller\Managment
 {
     /**
-     * Show user list
+     * Show page list
      * @return void
      */
     public function listAction()
     {
-        $em = \Zend_Registry::get('doctrine')->getEntityManager();
-        $list = $em->getRepository('\ZF\Entities\Page')->findByIsDeleted(false);
-
-        $this->view->list = new \ZF\View\ListView($this->getRequest()->getControllerName(),
-                                                    array("id"=>"№", "Title"=>"Title", "Url"=>"Url", "#edit"=>"Edit", "#delete"=>"Delete"),
-                                                    $list);
-        $this->view->list->setTitle("Page list");
-
-        $this->view->content = $this->view->render('management/list.phtml');
-        \ZF\View\ViewPlugin::setNoRender();
+        $entity_name = '\ZF\Entities\Page';
+        $titles = array("id"=>"№", "Title"=>"Title", "Url"=>"Url", "#edit"=>"Edit", "#delete"=>"Delete");
+        $title = "Page list";
+        parent::showList($entity_name, $titles, $title);
     }
 
     /**
@@ -68,6 +62,10 @@ class PagemanagementController extends \ZF\Controller\Managment
         \ZF\View\ViewPlugin::setNoRender();
     }
 
+    /**
+     * Edit page
+     * @return void
+     */
     public function editAction()
     {
         if (!$ID = $this->getRequest()->getParam('ID', false))
@@ -119,5 +117,16 @@ class PagemanagementController extends \ZF\Controller\Managment
         $this->view->title = $this->view->translate('Edit page');
         $this->view->content = $this->view->render('management/edit.phtml');
         \ZF\View\ViewPlugin::setNoRender();
-    }    
+    }
+
+    /**
+     * Delete page from list
+     * @return void
+     */
+    public function deleteAction()
+    {
+        $entity = \Zend_Registry::get('doctrine')->getEntityManager()->getRepository('\ZF\Entities\Page');
+        $relation = \Zend_Registry::get('doctrine')->getEntityManager()->getRepository('\ZF\Entities\PageTagRel');
+        return parent::delete($entity, $relation);
+    }      
 }

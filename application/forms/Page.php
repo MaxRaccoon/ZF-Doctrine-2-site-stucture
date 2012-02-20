@@ -42,7 +42,7 @@ class Application_Form_Page extends Zend_Form
         ));
 
         $meta_tags = new Zend_Form_Element_Text('meta_tags', array(
-            'required'    => true,
+            'required'    => false,
             'label'       => $this->getView()->translate('Meta tags'),
             'maxlength'   => '250',
         	'class'		  => 'text',
@@ -52,7 +52,7 @@ class Application_Form_Page extends Zend_Form
         ));      
 
         $tags = new Zend_Form_Element_Text('tags', array(
-            'required'    => true,
+            'required'    => false,
             'label'       => $this->getView()->translate('Tags'),
             'maxlength'   => '250',
         	'class'		  => 'text',

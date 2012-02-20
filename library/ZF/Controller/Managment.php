@@ -6,6 +6,27 @@
 namespace ZF\Controller;
 class Managment extends \Zend_Controller_Action
 {
+    public function showList($entity_name, $titles, $title, $hasDelete = true)
+    {
+        $em = \Zend_Registry::get('doctrine')->getEntityManager();
+        if ($hasDelete)
+        {
+            $list = $em->getRepository($entity_name)->findByIsDeleted(false);
+        }
+        else
+        {
+            $list = $em->getRepository($entity_name)->findAll();
+        }
+
+        $this->view->list = new \ZF\View\ListView($this->getRequest()->getControllerName(),
+                                                    $titles,
+                                                    $list);
+        $this->view->list->setTitle($title);
+
+        $this->view->content = $this->view->render('management/list.phtml');
+        \ZF\View\ViewPlugin::setNoRender();
+    }
+
     /**
      * Delete entity from list by id
      * @return void

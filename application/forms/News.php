@@ -23,7 +23,7 @@ class Application_Form_News extends Zend_Form
         ));
 
         $tags = new Zend_Form_Element_Text('tags', array(
-            'required'    => true,
+            'required'    => false,
             'label'       => $this->getView()->translate('Tags'),
             'maxlength'   => '250',
         	'class'		  => 'text',

@@ -13,16 +13,10 @@ class UsermanagementController extends \ZF\Controller\Managment
      */
     public function listAction()
     {
-        $em = \Zend_Registry::get('doctrine')->getEntityManager();
-        $list = $em->getRepository('\ZF\Entities\User')->findByIsDeleted(false);
-        
-        $this->view->list = new \ZF\View\ListView($this->getRequest()->getControllerName(),
-                                                    array("id"=>"№", "Nickname"=>"Nickname", "FullName"=>"Full name", "#edit"=>"Edit", "#delete"=>"Delete"),
-                                                    $list);
-        $this->view->list->setTitle("Users list");
-
-        $this->view->content = $this->view->render('management/list.phtml');
-        \ZF\View\ViewPlugin::setNoRender();
+        $entity_name = '\ZF\Entities\User';
+        $titles = array("id"=>"№", "Nickname"=>"Nickname", "FullName"=>"Full name", "#edit"=>"Edit", "#delete"=>"Delete");
+        $title = "Users list";
+        parent::showList($entity_name, $titles, $title);
     }
 
     /**

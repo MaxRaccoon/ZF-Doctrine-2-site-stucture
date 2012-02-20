@@ -15,6 +15,8 @@
 
      //News managment
      'News list'=>'Список новостей',
+     'Anons'=>'Анонс',
+     'Text'=>'Текст',
 
      //User
      'Nickname'=>'Имя входа',
@@ -31,10 +33,17 @@
      //Tags
      'Tags'=>'Теги',
 
+     //Info
+     'Add info'=>'Добавить информацию',
+     'Key'=>'Ключ',
+     'Value'=>'Значение',
+     'Edit info'=>'Редактировать информацию',
+
      //Action
      'Edit'=>'Редактировать',
      'Delete'=>'Удалить',
      'Add new item'=>'Добавить позицию',
+     'Add'=>'Добавить',
 
      //Mail
      'Hello, %s!'=>'Здравствуйте, %s!',
@@ -42,6 +51,9 @@
      'Your login'=>'Имя для входа',
      'Your password'=>'Ваш пароль',
      'An «%s» account has been created for you!'=>'Для вас был создан аккаунт на сайте «%s»!',
+
+     //Messages
+     'Are you sure you want to remove this item?'=>'Вы действительно хотите удалить эту позицию?',
      
      //errors
      'The list is empty'=>'Список пуст',
