@@ -78,4 +78,3 @@ class Application_Form_Page extends Zend_Form
         $this->addElements(array($title, $url, $generateURL, $text, $meta_tags, $tags, $submit));
   }
 }
-

@@ -26,7 +26,7 @@ class Application_Form_User extends Zend_Form
         $email = new Zend_Form_Element_Text('email', array(
             'required'    => ($type == "edit" ? false : true ),
             'label'       => $this->getView()->translate('Email'),
-            'maxlength'   => '45',
+            'maxlength'   => '150',
         	'class'		  => 'text',
             'disable'     => ($type == "edit" ? true : false ),
             'validators'  => array(

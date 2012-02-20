@@ -53,7 +53,7 @@ class InfomanagementController extends \ZF\Controller\Managment
     }
 
     /**
-     * Edit infp
+     * Edit info
      * @return void
      */
     public function editAction()

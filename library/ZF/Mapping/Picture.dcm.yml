@@ -1,0 +1,38 @@
+Picture:
+  type: entity
+  table: picture
+  fields:
+    id:
+      id: true
+      type: integer
+      unsigned: false
+      nullable: false
+      generator:
+        strategy: IDENTITY
+    filename:
+      type: string
+      length: 250
+      fixed: false
+      nullable: false
+    dtAdd:
+      type: datetime
+      nullable: false
+      column: dt_add
+    authorId:
+      type: integer
+      unsigned: false
+      nullable: false
+      column: author_id
+    description:
+      type: text
+      nullable: true
+    name:
+      type: string
+      length: 250
+      fixed: false
+      nullable: true
+    isDeleted:
+      type: boolean
+      nullable: false
+      column: is_deleted
+  lifecycleCallbacks: {  }

@@ -1,6 +1,6 @@
-User:
+Portfolio:
   type: entity
-  table: user
+  table: portfolio
   fields:
     id:
       id: true
@@ -9,45 +9,39 @@ User:
       nullable: false
       generator:
         strategy: IDENTITY
-    email:
-      type: string
-      length: 255
-      fixed: false
+    dtCreate:
+      type: datetime
       nullable: false
-    password:
+      column: dt_create
+    dtLaunch:
+      type: datetime
+      nullable: true
+      column: dt_launch
+    title:
       type: string
       length: 250
       fixed: false
       nullable: false
-    nickname:
+    url:
       type: string
-      length: 200
+      length: 250
       fixed: false
+      nullable: true
+    description:
+      type: text
       nullable: false
-    firstName:
-      type: string
-      length: 100
-      fixed: false
-      nullable: false
-      column: first_name
-    lastName:
-      type: string
-      length: 100
-      fixed: false
-      nullable: false
-      column: last_name
     isDeleted:
       type: boolean
       nullable: false
       column: is_deleted
   oneToOne:
-    aclRole:
-      targetEntity: AclRole
+    customer:
+      targetEntity: Customer
       cascade: {  }
       mappedBy: null
       inversedBy: null
       joinColumns:
-        acl_role:
+        customer_id:
           referencedColumnName: id
       orphanRemoval: false
   lifecycleCallbacks: {  }

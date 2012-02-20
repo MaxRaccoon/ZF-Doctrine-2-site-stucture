@@ -39,6 +39,18 @@
      'Value'=>'Значение',
      'Edit info'=>'Редактировать информацию',
 
+     //Customer
+     'Customer list'=>'Список клиентов',
+     'Add customer'=>'Добавить клиента',
+     'Company name'=>'Название компании',
+     'Phone'=>'Телефон',
+     'Description'=>'Описание',
+
+     //Portfolio
+     'Portfolio list'=>'Список работ',
+     'Customer'=>'Клиент',
+     'Launch date'=>'Дата запуска (формат YYYY-mm-dd)',
+
      //Action
      'Edit'=>'Редактировать',
      'Delete'=>'Удалить',

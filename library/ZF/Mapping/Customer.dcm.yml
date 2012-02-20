@@ -1,0 +1,39 @@
+Customer:
+  type: entity
+  table: customer
+  fields:
+    id:
+      id: true
+      type: integer
+      unsigned: false
+      nullable: false
+      generator:
+        strategy: IDENTITY
+    title:
+      type: string
+      length: 250
+      fixed: false
+      nullable: false
+    description:
+      type: text
+      nullable: false
+    url:
+      type: string
+      length: 250
+      fixed: false
+      nullable: true
+    phone:
+      type: string
+      length: 25
+      fixed: false
+      nullable: true
+    email:
+      type: string
+      length: 150
+      fixed: false
+      nullable: true
+    isDeleted:
+      type: boolean
+      nullable: false
+      column: is_deleted
+  lifecycleCallbacks: {  }

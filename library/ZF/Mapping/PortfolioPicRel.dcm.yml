@@ -1,6 +1,6 @@
-PageTagRel:
+PortfolioPicRel:
   type: entity
-  table: page_tag_rel
+  table: portfolio_pic_rel
   fields:
     id:
       id: true
@@ -10,22 +10,22 @@ PageTagRel:
       generator:
         strategy: IDENTITY
   oneToOne:
-    tag:
-      targetEntity: Tags
+    pic:
+      targetEntity: Picture
       cascade: {  }
       mappedBy: null
       inversedBy: null
       joinColumns:
-        tag_id:
+        pic_id:
           referencedColumnName: id
       orphanRemoval: false
-    page:
-      targetEntity: Page
+    portfolio:
+      targetEntity: Portfolio
       cascade: {  }
       mappedBy: null
       inversedBy: null
       joinColumns:
-        page_id:
+        portfolio_id:
           referencedColumnName: id
       orphanRemoval: false
   lifecycleCallbacks: {  }
