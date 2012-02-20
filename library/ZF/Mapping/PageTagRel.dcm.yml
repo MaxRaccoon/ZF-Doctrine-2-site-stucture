@@ -1,6 +1,6 @@
-AclRole:
+PageTagRel:
   type: entity
-  table: acl_role
+  table: page_tag_rel
   fields:
     id:
       id: true
@@ -9,23 +9,23 @@ AclRole:
       nullable: false
       generator:
         strategy: IDENTITY
-    name:
-      type: string
-      length: 100
-      fixed: false
-      nullable: false
-    isDeleted:
-      type: boolean
-      nullable: false
-      column: is_deleted
   oneToOne:
-    parent:
-      targetEntity: AclRole
+    tag:
+      targetEntity: Tags
       cascade: {  }
       mappedBy: null
       inversedBy: null
       joinColumns:
-        parent_id:
+        tag_id:
+          referencedColumnName: id
+      orphanRemoval: false
+    page:
+      targetEntity: Page
+      cascade: {  }
+      mappedBy: null
+      inversedBy: null
+      joinColumns:
+        page_id:
           referencedColumnName: id
       orphanRemoval: false
   lifecycleCallbacks: {  }

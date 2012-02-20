@@ -10,7 +10,10 @@ echo $this->doctype('XHTML1_TRANSITIONAL');
     <?php echo $this->headMeta() . "\n"; ?>
     <?php echo $this->headTitle() . "\n"; ?>
     <?php
+        $this->headLink()->appendStylesheet('/css/style.css');
 
+        $this->headScript()->appendFile('/js/script.js');
+        $this->headScript()->prependFile('/js/jquery-1.7.1.min.js');
    	?>
    	<?php echo $this->headLink() . "\n"; ?>
 	<?php echo $this->headScript() . "\n"; ?>

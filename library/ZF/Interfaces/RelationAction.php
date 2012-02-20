@@ -7,4 +7,6 @@ namespace ZF\Interfaces;
 interface RelationAction
 {
     public function clearRelations($entity);
+    public function getTags($entity);
+    public function getTagsInString($entity);
 }

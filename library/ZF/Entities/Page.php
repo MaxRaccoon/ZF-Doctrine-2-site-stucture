@@ -2,14 +2,14 @@
 namespace ZF\Entities;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-    
+
 /**
- * News
+ * Page
  *
- * @ORM\Table(name="news")
+ * @ORM\Table(name="page")
  * @ORM\Entity
  */
-class News
+class Page
 {
     /**
      * @var integer $id
@@ -42,11 +42,11 @@ class News
     private $title;
 
     /**
-     * @var text $anons
+     * @var string $url
      *
-     * @ORM\Column(name="anons", type="text", nullable=false)
+     * @ORM\Column(name="url", type="string", length=250, nullable=false)
      */
-    private $anons;
+    private $url;
 
     /**
      * @var text $text
@@ -54,6 +54,13 @@ class News
      * @ORM\Column(name="text", type="text", nullable=false)
      */
     private $text;
+
+    /**
+     * @var string $metaTags
+     *
+     * @ORM\Column(name="meta_tags", type="string", length=250, nullable=false)
+     */
+    private $metaTags;
 
     /**
      * @var boolean $isDeleted
@@ -72,7 +79,7 @@ class News
      */
     private $author;
 
-
+    
     function __construct()
     {
         $this->setIsDeleted(0);
@@ -93,7 +100,7 @@ class News
      * Set dtCreate
      *
      * @param datetime $dtCreate
-     * @return News
+     * @return Page
      */
     public function setDtCreate($dtCreate)
     {
@@ -115,7 +122,7 @@ class News
      * Set dtUpdate
      *
      * @param datetime $dtUpdate
-     * @return News
+     * @return Page
      */
     public function setDtUpdate($dtUpdate)
     {
@@ -137,7 +144,7 @@ class News
      * Set title
      *
      * @param string $title
-     * @return News
+     * @return Page
      */
     public function setTitle($title)
     {
@@ -156,32 +163,32 @@ class News
     }
 
     /**
-     * Set anons
+     * Set url
      *
-     * @param text $anons
-     * @return News
+     * @param string $url
+     * @return Page
      */
-    public function setAnons($anons)
+    public function setUrl($url)
     {
-        $this->anons = $anons;
+        $this->url = $url;
         return $this;
     }
 
     /**
-     * Get anons
+     * Get url
      *
-     * @return text 
+     * @return string 
      */
-    public function getAnons()
+    public function getUrl()
     {
-        return $this->anons;
+        return $this->url;
     }
 
     /**
      * Set text
      *
      * @param text $text
-     * @return News
+     * @return Page
      */
     public function setText($text)
     {
@@ -200,10 +207,32 @@ class News
     }
 
     /**
+     * Set metaTags
+     *
+     * @param string $metaTags
+     * @return Page
+     */
+    public function setMetaTags($metaTags)
+    {
+        $this->metaTags = $metaTags;
+        return $this;
+    }
+
+    /**
+     * Get metaTags
+     *
+     * @return string 
+     */
+    public function getMetaTags()
+    {
+        return $this->metaTags;
+    }
+
+    /**
      * Set isDeleted
      *
      * @param boolean $isDeleted
-     * @return News
+     * @return Page
      */
     public function setIsDeleted($isDeleted)
     {
@@ -225,7 +254,7 @@ class News
      * Set author
      *
      * @param User $author
-     * @return News
+     * @return Page
      */
     public function setAuthor(User $author = null)
     {
@@ -242,10 +271,4 @@ class News
     {
         return $this->author;
     }
-
-    /**
-     * #####################################
-     * ########NO DB FUNCTION###############
-     * #####################################
-     */
 }

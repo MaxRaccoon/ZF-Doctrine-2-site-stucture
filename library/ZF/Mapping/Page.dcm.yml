@@ -1,6 +1,6 @@
-User:
+Page:
   type: entity
-  table: user
+  table: page
   fields:
     id:
       id: true
@@ -9,45 +9,45 @@ User:
       nullable: false
       generator:
         strategy: IDENTITY
-    email:
-      type: string
-      length: 255
-      fixed: false
+    dtCreate:
+      type: datetime
       nullable: false
-    password:
+      column: dt_create
+    dtUpdate:
+      type: datetime
+      nullable: false
+      column: dt_update
+    title:
       type: string
       length: 250
       fixed: false
       nullable: false
-    nickname:
+    url:
       type: string
-      length: 200
+      length: 250
       fixed: false
       nullable: false
-    firstName:
+    text:
+      type: text
+      nullable: false
+    metaTags:
       type: string
-      length: 100
+      length: 250
       fixed: false
       nullable: false
-      column: first_name
-    lastName:
-      type: string
-      length: 100
-      fixed: false
-      nullable: false
-      column: last_name
+      column: meta_tags
     isDeleted:
       type: boolean
       nullable: false
       column: is_deleted
   oneToOne:
-    aclRole:
-      targetEntity: AclRole
+    author:
+      targetEntity: User
       cascade: {  }
       mappedBy: null
       inversedBy: null
       joinColumns:
-        acl_role:
+        author_id:
           referencedColumnName: id
       orphanRemoval: false
   lifecycleCallbacks: {  }

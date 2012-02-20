@@ -41,7 +41,7 @@ class Plugin extends \Zend_Controller_Plugin_Abstract
             $redirector = \Zend_Controller_Action_HelperBroker::getStaticHelper('redirector');
             $redirector->gotoUrl('/404.html');
         }
-        
+
         //Cheek allow, and redirect if access deny
         if (!$acl->isAllowed($role, $controller, $action->getName() ))
         {

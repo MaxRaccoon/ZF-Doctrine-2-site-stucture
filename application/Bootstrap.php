@@ -38,6 +38,13 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $doctrine = $this->bootstrap('doctrine')->getResource('doctrine');
         $em = $doctrine->getEntityManager();          
         Zend_Registry::set('em', $em);
+
+        $query = "SET character_set_results = 'utf8', character_set_client = 'utf8',
+                character_set_connection = 'utf8', character_set_database = 'utf8',
+                character_set_server = 'utf8', time_zone = '+08:00'";
+        $conn = $em->getConnection();
+        $stmt = $conn->prepare($query);
+        $stmt->execute();        
     }
 
     protected function _initDoctype()
@@ -67,12 +74,13 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
     protected function _initFlashMessenger()
     {
-        /** @var $flashMessenger Zend_Controller_Action_Helper_FlashMessenger */
+        /*
         $flashMessenger = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger');
         if ($flashMessenger->hasMessages()) {
             $view = $this->getResource('view');
             $view->messages = $flashMessenger->getMessages();
         }
+         */
     }    
 
     public function _initAutoloader()

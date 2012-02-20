@@ -7,13 +7,18 @@ namespace ZF\Controller;
 class Tags
 {
     /**
-     * Add new News-Tags relations
-     * @param \ZF\Entities\News $news
+     * Add new News|Page-Tags relations
+     * @param \ZF\Entities\News OR \ZF\Entities\Page $entity
      * @param string $tags_string
      * @return bool
      */
-    public static function newsAddRelations(\ZF\Entities\News $news, $tags_string = "")
+    public static function addRelations($entity, $tags_string = "")
     {
+        if ( !$entity instanceof \ZF\Entities\News && !$entity instanceof \ZF\Entities\Page )
+        {
+            throw new \Exception("Entity must be instance of \ZF\Entities\News or \ZF\Entities\Page!");
+        }
+
         if (trim($tags_string) == "")
         {
             return true;
@@ -22,8 +27,16 @@ class Tags
         $em = \Zend_Registry::get('doctrine')->getEntityManager();
         foreach (explode(" ",$tags_string) AS $tag_name)
         {
-            $new_rel = new \ZF\Entities\NewsTagRel();
-            $new_rel->setNews($news);
+            if ($entity instanceof \ZF\Entities\News)
+            {
+                $new_rel = new \ZF\Entities\NewsTagRel();
+                $new_rel->setNews($entity);
+            }
+            elseif ($entity instanceof \ZF\Entities\Page)
+            {
+                $new_rel = new \ZF\Entities\PageTagRel();
+                $new_rel->setPage($entity);
+            }
 
             //If tag not isset, yet - add new tag in DB 
             if (!$tag = $em->getRepository('\ZF\Entities\Tags')->findOneByName($tag_name))
@@ -45,14 +58,27 @@ class Tags
 
     /**
      * @static
-     * @param \ZF\Entities\News $news
+     * @param \ZF\Entities\News OR \ZF\Entities\Page $entity
      * @param string $tags_string
      * @return bool
      */
-    public static function newsEditRelations(\ZF\Entities\News $news, $tags_string = "")
+    public static function editRelations($entity, $tags_string = "")
     {
+        if ( $entity instanceof \ZF\Entities\News )
+        {
+            $rel_name = "\ZF\Entities\NewsTagRel";
+        }
+        elseif ( $entity instanceof \ZF\Entities\Page )
+        {
+            $rel_name = "\ZF\Entities\PageTagRel";
+        }
+        else
+        {
+            throw new \Exception("Entity must be instance of \ZF\Entities\News or \ZF\Entities\Page!");
+        }
+
         $em = \Zend_Registry::get('doctrine')->getEntityManager();
-        $old_string = $em->getRepository('\ZF\Entities\NewsTagRel')->getByNewsToString($news);
+        $old_string = $em->getRepository($rel_name)->getTagsInString($entity);
         if (trim($tags_string) == trim($old_string))
         {
             return true;
@@ -61,12 +87,12 @@ class Tags
         //Clear old tags
         if (trim($tags_string) == "")
         {
-           $em->getRepository('\ZF\Entities\NewsTagRel')->clearRelations($news);
+           $em->getRepository($rel_name)->clearRelations($entity);
            return true;
         }
 
         $isset_tags = array();
-        if ($relations = $em->getRepository('\ZF\Entities\NewsTagRel')->getByNews($news))
+        if ($relations = $em->getRepository($rel_name)->getTags($entity))
         {
             foreach ($relations AS $item)
             {
@@ -89,8 +115,16 @@ class Tags
             if (array_search($tag, $isset_tags) === false)
             {
                 //Add tag rel
-                $new_rel = new \ZF\Entities\NewsTagRel();
-                $new_rel->setNews($news);
+                if ( $entity instanceof \ZF\Entities\News )
+                {
+                    $new_rel = new \ZF\Entities\NewsTagRel();
+                    $new_rel->setNews($entity);
+                }
+                elseif ( $entity instanceof \ZF\Entities\Page )
+                {
+                    $new_rel = new \ZF\Entities\PageTagRel();
+                    $new_rel->setPage($entity);
+                }
                 $new_rel->setTag($tag);
                 $em->persist($new_rel);
                 $em->flush();
@@ -107,7 +141,7 @@ class Tags
         {
             foreach ($isset_tags AS $deleted_tag)
             {
-                $em->getRepository('\ZF\Entities\NewsTagRel')->clearRelations($news, $deleted_tag);
+                $em->getRepository($rel_name)->clearRelations($entity, $deleted_tag);
             }
         }
 

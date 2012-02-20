@@ -1,23 +1,23 @@
 <?php
 /**
  * User: raccoon
- * Date: 15.02.12 14:30
+ * Date: 17.02.12 16:53
  */
 namespace ZF\Repositories;
-class NewsTagRelRepository extends \Doctrine\ORM\EntityRepository implements \ZF\Interfaces\RelationAction
+class PageTagRelRepository extends \Doctrine\ORM\EntityRepository implements \ZF\Interfaces\RelationAction
 {
     /**
      * Clear relation by one or two parameters
      * @throws \Exception
-     * @param  $entity \ZF\Entities\Tags OR \ZF\Entities\News
+     * @param  $entity \ZF\Entities\Tags OR \ZF\Entities\Page
      * @param null $second_entity \ZF\Entities\Tags OR \ZF\Entities\News (must differ from the first)
      * @return mixed
      */
     public function clearRelations($entity, $second_entity = null)
     {
-        if ($entity instanceof \ZF\Entities\News)
+        if ($entity instanceof \ZF\Entities\Page)
         {
-            $field = "news";
+            $field = "page";
             $second_field = "tag";
             if (!is_null($second_entity) && !$second_entity instanceof \ZF\Entities\Tags)
             {
@@ -27,18 +27,18 @@ class NewsTagRelRepository extends \Doctrine\ORM\EntityRepository implements \ZF
         elseif ($entity instanceof \ZF\Entities\Tags)
         {
             $field = "tag";
-            $second_field = "news";
-            if (!is_null($second_entity) && !$second_entity instanceof \ZF\Entities\News)
+            $second_field = "page";
+            if (!is_null($second_entity) && !$second_entity instanceof \ZF\Entities\Page)
             {
-                throw new \Exception("Second param must by instance of News (if first is Tags)!");
+                throw new \Exception("Second param must by instance of Page (if first is Tags)!");
             }
         }
         else
         {
-            throw new \Exception("First param must by instance of News or Tag!");
+            throw new \Exception("First param must by instance of Page or Tag!");
         }
 
-        $query = $this->_em->createQuery("DELETE FROM ZF\Entities\NewsTagRel rel
+        $query = $this->_em->createQuery("DELETE FROM ZF\Entities\PageTagRel rel
                                            WHERE rel." . $field . "=:value"
                                             . ( is_null($second_entity) ? "" : " AND rel." . $second_field . "=:second" ) );
         if (is_null($second_entity))
@@ -53,29 +53,29 @@ class NewsTagRelRepository extends \Doctrine\ORM\EntityRepository implements \ZF
     }
 
     /**
-     * Get tags by news
-     * @param \ZF\Entities\News $news
+     * Get tags by page
+     * @param \ZF\Entities\Page $entity
      * @return mixed
      */
-    public function getTags(\ZF\Entities\News $news)
+    public function getTags($entity)
     {
-        $query = $this->_em->createQuery("SELECT rel, n, t
-                                            FROM ZF\Entities\NewsTagRel rel
-                                            JOIN rel.news n
+        $query = $this->_em->createQuery("SELECT rel, p, t
+                                            FROM ZF\Entities\PageTagRel rel
+                                            JOIN rel.page p
                                             JOIN rel.tag t
-                                           WHERE rel.news=:value");
-        $query->setParameter("value", $news);
+                                           WHERE rel.page=:value");
+        $query->setParameter("value", $entity);
         return $query->execute();
     }
 
     /**
-     * @param \ZF\Entities\News $news
+     * @param \ZF\Entities\Page $entity
      * @return string
      */
-    public function getTagsInString(\ZF\Entities\News $news)
+    public function getTagsInString($entity)
     {
         $tag_string = "";
-        foreach ($this->getByNews($news) AS $rel)
+        foreach ($this->getTags($entity) AS $rel)
         {
             $tag_string .= $rel->getTag()->getName() . " ";
         }

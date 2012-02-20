@@ -1,5 +1,6 @@
 <?php
-class Application_View_Helper_AuthBlock extends Zend_View_Helper_Action {
+class Application_View_Helper_AuthBlock extends Zend_View_Helper_Action
+{
 
 	public function AuthBlock()
 	{

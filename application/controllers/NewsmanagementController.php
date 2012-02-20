@@ -52,7 +52,7 @@ class NewsmanagementController extends \ZF\Controller\Managment
                 if ( is_null($em->flush()) )
                 {
                     //Add tags
-                    \ZF\Controller\Tags::newsAddRelations($News, $this->_getParam("tags"));
+                    \ZF\Controller\Tags::addRelations($News, $this->_getParam("tags"));
                     $this->_redirect($this->view->url(array('controller'=>$this->getRequest()->getControllerName(),'action'=>'list'), 'default'));
                 }
     		}
