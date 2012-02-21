@@ -1,0 +1,11 @@
+div.button
+{
+    border:1px solid gray;
+    background: #dddddd;
+    padding:3px 10px 3px 10px;
+    color:#515151;
+    cursor:pointer;
+    text-align:center;
+}
+    #uploadButton{width:150px;}
+        #uploadButton #load{display:none;}

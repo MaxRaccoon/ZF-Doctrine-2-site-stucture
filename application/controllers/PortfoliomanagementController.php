@@ -114,10 +114,13 @@ class PortfoliomanagementController extends \ZF\Controller\Managment
                                             'url'=>$Portfolio->getUrl(),
                                             'dt_launch'=>$Portfolio->getDtLaunch()->format("Y-m-d"),
                                             'description'=>$Portfolio->getDescription(),
-                                            'customer'=>$Portfolio->getCustomer()->getId()
+                                            'customer'=>$Portfolio->getCustomer()->getId(),
+                                            'pic_dir'=>$Portfolio->getId()
                                     ));
+        $this->view->headScript()->prependFile('/js/jquery-plugins/ajaxupload.js');
+        $this->view->headScript()->prependFile('/js/upload.js');
         $this->view->title = $this->view->translate('Edit customer');
-        $this->view->content = $this->view->render('management/edit.phtml');
+        $this->view->content = $this->view->render('portfolio/edit.phtml');
         \ZF\View\ViewPlugin::setNoRender();
     }
 

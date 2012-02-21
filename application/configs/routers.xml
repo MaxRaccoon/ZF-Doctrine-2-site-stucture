@@ -48,6 +48,14 @@
                 <action>delete</action>
             </defaults>
         </list_delete>
+
+        <upload type="Zend_Controller_Router_Route">
+            <route>upload/:for/:dir</route>
+            <defaults>
+                <controller>ajax</controller>
+                <action>upload</action>
+            </defaults>
+        </upload>
     
 
 </routes>

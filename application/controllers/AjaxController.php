@@ -15,10 +15,6 @@ class AjaxController extends Zend_Controller_Action
         if ($this->getRequest()->isXmlHttpRequest()) {
             Zend_Controller_Action_HelperBroker::resetHelpers();
         }
-        else
-        {
-            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
-        }
     }
 
     /**
@@ -39,5 +35,37 @@ class AjaxController extends Zend_Controller_Action
         $response = $this->getResponse();
         $response->setBody($output)
             ->setHeader('content-type', 'application/json', true);
+    }
+
+    /**
+     * @return void
+     */
+    public function uploadAction()
+    {
+        if (!$for = $this->getRequest()->getParam('for', false))
+        {
+            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+        }
+
+        if (!$dir = $this->getRequest()->getParam('dir', false))
+        {
+            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+        }
+
+        Zend_Controller_Action_HelperBroker::resetHelpers();
+
+        if ($file_path = ZF\Plugins\Uploader::upload( $for . DIRECTORY_SEPARATOR . $dir ))
+        {
+            $result = array("RESULT"=>1, "file"=>$file_path);
+        }
+        else
+        {
+            $result = array("RESULT"=>0);
+        }
+
+        $output = Zend_Json::encode($result);
+        $response = $this->getResponse();
+        $response->setBody($output)
+            ->setHeader('content-type', 'application/json', true);        
     }
 }

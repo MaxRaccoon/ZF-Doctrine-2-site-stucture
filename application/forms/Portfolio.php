@@ -12,6 +12,11 @@ class Application_Form_Portfolio extends Zend_Form
 		$this->setName('portfolio');
 		$this->setMethod('post');
 
+        $pic_dir = new Zend_Form_Element_Hidden('pic_dir', array(
+            'required'    => true,
+            'maxlength'   => '250'
+        ));
+
         $title = new Zend_Form_Element_Text('title', array(
             'required'    => true,
             'label'       => $this->getView()->translate('Title'),
@@ -61,6 +66,6 @@ class Application_Form_Portfolio extends Zend_Form
         	'class'=> 'submit'
         ));
 
-        $this->addElements(array($title, $url, $description, $customer, $dt_launch, $submit));
+        $this->addElements(array($pic_dir, $title, $url, $description, $customer, $dt_launch, $submit));
   }
 } 
