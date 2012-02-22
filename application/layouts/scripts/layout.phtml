@@ -26,6 +26,10 @@ echo $this->doctype('XHTML1_TRANSITIONAL');
         <?php echo $this->AuthBlock();?>
     </div>
 
+    <div class="menu">
+        <?php echo $this->navigation()->menu($this->mainMenu)->setPartial('mainMenu.phtml'); ?>
+    </div>
+
     <div class="content">
         <?php echo $this->content; ?>
     </div>
@@ -33,7 +37,7 @@ echo $this->doctype('XHTML1_TRANSITIONAL');
     <div id="footer">
         <?php if ($this->managementMenu) { ?>
         <div class="managementMenu">
-            <?php echo $this->navigation()->menu($this->managementMenu)->setPartial('bottomMenu.phtml');; ?>
+            <?php echo $this->navigation()->menu($this->managementMenu)->setPartial('bottomMenu.phtml'); ?>
         </div>
         <?php } ?>
     </div>

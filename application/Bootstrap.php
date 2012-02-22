@@ -140,6 +140,22 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
     protected function _initMenu()
     {
+        $view = $this->getResource('view');
+        $em = \Zend_Registry::get('doctrine')->getEntityManager();
+        //Menu
+        $menuPages = array();
+        foreach ( $em->getRepository('\ZF\Entities\Menu')->getAll() AS  $item )
+        {
+		    $menuPages[] = array('controller' => $item->getAclController()->getName(),
+	                		    'action' => ( is_null($item->getAclAction()) ? 'index' : $item->getAclAction()->getName()),
+								'resource' => $item->getAclController()->getResourceId(),
+								'privilege' => ( is_null($item->getAclAction()) ? 'index' : $item->getAclAction()->getName() ),
+								'label' => $item->getTitle(),
+								'route' => $item->getRoute()
+							);
+        }
+        $view->mainMenu = new Zend_Navigation($menuPages);
+
         //ManagementMenuRel
         $auth = Zend_Auth::getInstance();
         if ($auth->hasIdentity())
@@ -150,22 +166,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             {
                 return true;
             }
-            
-            $em = \Zend_Registry::get('doctrine')->getEntityManager();
 
             $pages = array();
             foreach ( $em->getRepository('\ZF\Entities\ManagementMenuRel')->findByAclRole($user->getAclrole()->getId()) AS  $Menu )
             {
 				$pages[] = array('controller' => $Menu->getManagementMenu()->getAclController()->getName(),
 	                				'action' => ( is_null($Menu->getManagementMenu()->getAclAction()) ? 'index' : $Menu->getManagementMenu()->getAclAction()->getName()),
-									'resource' => $Menu->getManagementMenu()->getAclController(),
+									'resource' => $Menu->getManagementMenu()->getAclController()->getResourceId(),
 									'privilege' => ( is_null($Menu->getManagementMenu()->getAclAction()) ? 'index' : $Menu->getManagementMenu()->getAclAction()->getName() ),
 									'label' => $Menu->getManagementMenu()->getName(),
 									'route' => 'default'
 								);
             }
-
-            $view = $this->getResource('view');
             $view->managementMenu = new Zend_Navigation($pages);
         }
         else
