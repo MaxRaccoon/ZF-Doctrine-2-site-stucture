@@ -143,16 +143,29 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view = $this->getResource('view');
         $em = \Zend_Registry::get('doctrine')->getEntityManager();
         //Menu
-        $menuPages = array();
+        $menuPages = array(); $i = 0;
         foreach ( $em->getRepository('\ZF\Entities\Menu')->getAll() AS  $item )
         {
-		    $menuPages[] = array('controller' => $item->getAclController()->getName(),
+		    $menuPages[$i] = array('controller' => $item->getAclController()->getName(),
 	                		    'action' => ( is_null($item->getAclAction()) ? 'index' : $item->getAclAction()->getName()),
 								'resource' => $item->getAclController()->getResourceId(),
 								'privilege' => ( is_null($item->getAclAction()) ? 'index' : $item->getAclAction()->getName() ),
 								'label' => $item->getTitle(),
 								'route' => $item->getRoute()
 							);
+            //Define all rexep routers
+            if ($item->getRoute() != 'default')
+            {
+                switch ($item->getRoute())
+                {
+                    case "openpage":
+                        {
+                            $menuPages[$i]["params"] = array("page"=>$item->getMethod());
+                        }
+                    break;
+                }
+            }
+            $i++;
         }
         $view->mainMenu = new Zend_Navigation($menuPages);
 

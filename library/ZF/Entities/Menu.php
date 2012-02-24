@@ -82,7 +82,7 @@ class Menu
     {
         $this->aclAction = new ArrayCollection();
         $this->aclController = new ArrayCollection();
-        $this->parent = new ArrayCollection();
+        $this->parent = null;
     }
 
     /**

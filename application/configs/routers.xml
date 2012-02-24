@@ -49,6 +49,22 @@
             </defaults>
         </list_delete>
 
+        <list_moveup type="Zend_Controller_Router_Route">
+            <route>:controller/moveup/:ID</route>
+            <defaults>
+                <controller>:controller</controller>
+                <action>moveup</action>
+            </defaults>
+        </list_moveup>
+
+        <list_movedown type="Zend_Controller_Router_Route">
+            <route>:controller/movedown/:ID</route>
+            <defaults>
+                <controller>:controller</controller>
+                <action>movedown</action>
+            </defaults>
+        </list_movedown>
+
         <upload type="Zend_Controller_Router_Route">
             <route>upload/:for/:dir</route>
             <defaults>
@@ -57,5 +73,16 @@
             </defaults>
         </upload>
     
-
+        <openpage type="Zend_Controller_Router_Route_Regex">
+            <route>(.+?)\.html</route>
+            <defaults>
+                <controller>page</controller>
+                <action>open</action>
+            </defaults>
+            <map>
+                <page>1</page>
+            </map>
+            <reverse>%s.html</reverse>
+        </openpage>
+    
 </routes>

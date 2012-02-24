@@ -1,0 +1,59 @@
+Menu:
+  type: entity
+  table: menu
+  fields:
+    id:
+      id: true
+      type: integer
+      unsigned: false
+      nullable: false
+      generator:
+        strategy: IDENTITY
+    method:
+      type: string
+      length: 200
+      fixed: false
+      nullable: true
+    title:
+      type: string
+      length: 250
+      fixed: false
+      nullable: false
+    position:
+      type: integer
+      unsigned: false
+      nullable: false
+    route:
+      type: string
+      length: 150
+      fixed: false
+      nullable: false
+  oneToOne:
+    aclController:
+      targetEntity: AclController
+      cascade: {  }
+      mappedBy: null
+      inversedBy: null
+      joinColumns:
+        acl_controller_id:
+          referencedColumnName: id
+      orphanRemoval: false
+    aclAction:
+      targetEntity: AclAction
+      cascade: {  }
+      mappedBy: null
+      inversedBy: null
+      joinColumns:
+        acl_action_id:
+          referencedColumnName: id
+      orphanRemoval: false
+    parent:
+      targetEntity: Menu
+      cascade: {  }
+      mappedBy: null
+      inversedBy: null
+      joinColumns:
+        parent:
+          referencedColumnName: id
+      orphanRemoval: false
+  lifecycleCallbacks: {  }

@@ -91,6 +91,44 @@ class ListView
                                                                     );
                             }
                         break;
+                        case "url":
+                            {
+                                $this->_listData[$i][$key] = array("controller"=>$row->getAclController()->getName(),
+                                                                   "action"=>$row->getAclAction()->getName(),
+                                                                    "route"=>( is_callable(array($row, 'getRoute') ? $row->getRoute() : "default" ) )
+                                                                    );
+                            }
+                        break;
+                        case "moveup":
+                            {
+                                if ($i == 0)
+                                {
+                                    $this->_listData[$i][$key] = "";
+                                }
+                                else
+                                {
+                                    $this->_listData[$i][$key] = array("controller"=>$this->_controllerName,
+                                                                   "action"=>"moveup",
+                                                                   "ID"=>$row->getId()
+                                                                    );
+                                }
+                            }
+                        break;
+                        case "movedown":
+                            {
+                                if ( $i < ( count($data) - 1 ) )
+                                {
+                                    $this->_listData[$i][$key] = array("controller"=>$this->_controllerName,
+                                                                   "action"=>"movedown",
+                                                                   "ID"=>$row->getId()
+                                                                    );
+                                }
+                                else
+                                {
+                                    $this->_listData[$i][$key] = "";
+                                }
+                            }
+                        break;
                     }
                 }
                 else

@@ -17,9 +17,30 @@
                 <td><?php
                         if ( substr($key, 0, 1) == "#" )
                         {
-                            echo "<a href='" . $this->url(array('controller'=>$value['controller'],'action'=>$value['action'], 'ID'=>(int)$value['ID']), 'list_' . $value['action']) . "'" . ( $value['action'] == "delete" ? " onclick=\"return confirm('" . $this->translate("Are you sure you want to remove this item?") . "');\"" : "" ) . ">";
-                            echo $this->translate(ucfirst($value['action']));
-                            echo "</a>";
+                            switch ( substr($key, 1) )
+                            {
+                                case "url":
+                                    {
+                                        echo "<a href='" . $this->url(array('controller'=>$value['controller'],'action'=>$value['action']), $value['route']) . "'>";
+                                        echo $this->url(array('controller'=>$value['controller'],'action'=>$value['action']), $value['route']);
+                                        echo "</a>";
+                                    }
+                                break;
+                                default:
+                                    {
+                                        if ($value == "")
+                                        {
+                                            echo "&nbsp;";
+                                        }
+                                        else
+                                        {
+                                            echo "<a href='" . $this->url(array('controller'=>$value['controller'],'action'=>$value['action'], 'ID'=>(int)$value['ID']), 'list_' . $value['action']) . "'" . ( $value['action'] == "delete" ? " onclick=\"return confirm('" . $this->translate("Are you sure you want to remove this item?") . "');\"" : "" ) . ">";
+                                            echo $this->translate(ucfirst($value['action']));
+                                            echo "</a>";
+                                        }
+                                    }
+                                break;
+                            }
                         }
                         else
                         {

@@ -92,7 +92,7 @@ class NewsmanagementController extends \ZF\Controller\Managment
                 if ( is_null($em->flush()) )
                 {
                     //Edit tags
-                    \ZF\Controller\Tags::newsEditRelations($news, $this->_getParam("tags"));
+                    \ZF\Controller\Tags::editRelations($news, $this->_getParam("tags"));
                     $this->_redirect($this->view->url(array('controller'=>$this->getRequest()->getControllerName(),'action'=>'list'), 'default'));
                 }
             }
@@ -113,7 +113,7 @@ class NewsmanagementController extends \ZF\Controller\Managment
     }
 
     /**
-     * Delete user from list
+     * Delete news from list
      * @return void
      */
     public function deleteAction()
