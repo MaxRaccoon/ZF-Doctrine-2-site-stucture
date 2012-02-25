@@ -54,9 +54,9 @@ class AjaxController extends Zend_Controller_Action
 
         Zend_Controller_Action_HelperBroker::resetHelpers();
 
-        if ($file_path = ZF\Plugins\Uploader::upload( $for . DIRECTORY_SEPARATOR . $dir ))
+        if ($file_info = ZF\Plugins\Uploader::upload( $for . DIRECTORY_SEPARATOR . $dir ))
         {
-            $result = array("RESULT"=>1, "file"=>$file_path);
+            $result = array("RESULT"=>1, "file"=>$file_info['url']);
         }
         else
         {

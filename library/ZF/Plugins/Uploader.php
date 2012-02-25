@@ -44,7 +44,10 @@ class Uploader
         }
         else
         {
-            return "/" . self::$_filestorage . "/" . $dir . "/" . $new_name . "." . self::getExtension($adapter->getMimeType());
+            return array( 'filename' => $new_name . "." . self::getExtension($adapter->getMimeType()),
+                            'path' => $path . $new_name . "." . self::getExtension($adapter->getMimeType()),
+                            'extension' => elf::getExtension($adapter->getMimeType()),
+                            'url' => "/" . self::$_filestorage . "/" . $dir . "/" . $new_name . "." . self::getExtension($adapter->getMimeType()) );
         }
     }
 
