@@ -13,7 +13,7 @@ class Managment extends \Zend_Controller_Action
         {
             $list = $em->getRepository($entity_name)->findByIsDeleted(false);
         }
-        elseif ($entity_name == '\ZF\Entities\Menu')
+        elseif ( $entity_name == '\ZF\Entities\Menu' || $entity_name == '\ZF\Entities\Slider' )
         {
             $list = $em->getRepository($entity_name)->getAll();
         }

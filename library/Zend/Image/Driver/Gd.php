@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @see Zend_Image_Driver_Exception
  */

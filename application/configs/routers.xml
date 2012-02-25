@@ -18,7 +18,7 @@
         </logout>
 
         <page_not_found type="Zend_Controller_Router_Route">
-            <route>404.html</route>
+            <route>404.htm</route>
             <defaults>
                 <controller>error</controller>
                 <action>notfound</action>

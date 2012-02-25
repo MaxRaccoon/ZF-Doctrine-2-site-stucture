@@ -14,7 +14,7 @@
  * @author     Leonid Shagabutdinov <leonid@shagabutdinov.com>
  * @copyright  Copyright (c) 2010
  * @license    http://www.opensource.org/licenses/bsd-license.php New BSD License
- * @version    $Id$
+ * @version    $Id: Exception.php 45 2010-02-24 16:51:47Z s.seletskiy $
  */
 
 /**

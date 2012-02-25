@@ -12,7 +12,7 @@ class Application_Form_Slider extends Zend_Form
 		$this->setMethod('post');
 
         $file = new Zend_Form_Element_File('pic', array(
-            'required'    => true,
+            'required'    => ($type == "edit" ? false : true ),
             'label'       => $this->getView()->translate('Picture'),
         	'class'		  => 'text'
         ));

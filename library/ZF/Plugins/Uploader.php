@@ -8,7 +8,7 @@ class Uploader
 {
     private static $_filestorage = "filestorage",
                     $_extentions = "jpg,png,gif,doc",
-                    $_maxsize = 1024000; //1Mb
+                    $_maxsize = 20240000; //2-Mb
 
     /**
      * @static
@@ -28,7 +28,7 @@ class Uploader
 
         if (!file_exists($path))
         {
-            mkdir($path, 0777);
+            mkdir($path, 0644);
         }
 
         $adapter = new \Zend_File_Transfer_Adapter_Http();
@@ -39,14 +39,17 @@ class Uploader
                                             'target'=> $path . $new_name . "." . self::getExtension($adapter->getMimeType())
                                             )
                             );
-        if ( !$adapter->receive() ) {
+        if ( !$adapter->receive() )
+        {
             throw new \Exception($adapter->getMessages());
         }
         else
         {
+            chmod($path . $new_name . "." . self::getExtension($adapter->getMimeType()), 0644);
             return array( 'filename' => $new_name . "." . self::getExtension($adapter->getMimeType()),
                             'path' => $path . $new_name . "." . self::getExtension($adapter->getMimeType()),
-                            'extension' => elf::getExtension($adapter->getMimeType()),
+                            'dir' => $path,
+                            'extension' => self::getExtension($adapter->getMimeType()),
                             'url' => "/" . self::$_filestorage . "/" . $dir . "/" . $new_name . "." . self::getExtension($adapter->getMimeType()) );
         }
     }
