@@ -87,14 +87,14 @@ class SlidermanagementController extends \ZF\Controller\Managment
     {
         if (!$ID = $this->getRequest()->getParam('ID', false))
         {
-            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+            return \ZF\Error\Page::pageNotFound($this->getRequest());
         }
 
         $em = \Zend_Registry::get('doctrine')->getEntityManager();
 
         if ( !$Slider = $em->find('\ZF\Entities\Slider', (int)$ID) )
         {
-            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+            return \ZF\Error\Page::pageNotFound($this->getRequest());
         }
 
         $this->view->form = new \Application_Form_Slider(null, "edit");
@@ -161,14 +161,14 @@ class SlidermanagementController extends \ZF\Controller\Managment
     {
         if (!$ID = $this->getRequest()->getParam('ID', false))
         {
-            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+            return \ZF\Error\Page::pageNotFound($this->getRequest());
         }
 
         $em = \Zend_Registry::get('doctrine')->getEntityManager();
 
         if ( !$Slider = $em->find('\ZF\Entities\Slider', (int)$ID) )
         {
-            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+            return \ZF\Error\Page::pageNotFound($this->getRequest());
         }
 
         $em->getRepository('\ZF\Entities\Slider')->removeSlide($Slider);
@@ -182,18 +182,18 @@ class SlidermanagementController extends \ZF\Controller\Managment
     {
         if (!$ID = $this->getRequest()->getParam('ID', false))
         {
-            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+            return \ZF\Error\Page::pageNotFound($this->getRequest());
         }
 
         $em = \Zend_Registry::get('doctrine')->getEntityManager();
         if ( !$Slider = $em->find('\ZF\Entities\Slider', (int)$ID) )
         {
-            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+            return \ZF\Error\Page::pageNotFound($this->getRequest());
         }
 
         if (!$moveDownMenu = $em->getRepository('\ZF\Entities\Slider')->getByPosition( ($Slider->getPosition() - 1) ))
         {
-            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+            return \ZF\Error\Page::pageNotFound($this->getRequest());
         }
 
         $moveDownMenu->setPosition($Slider->getPosition());
@@ -209,19 +209,19 @@ class SlidermanagementController extends \ZF\Controller\Managment
     {
         if (!$ID = $this->getRequest()->getParam('ID', false))
         {
-            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+            return \ZF\Error\Page::pageNotFound($this->getRequest());
         }
 
         $em = \Zend_Registry::get('doctrine')->getEntityManager();
 
         if ( !$Slider = $em->find('\ZF\Entities\Slider', (int)$ID) )
         {
-            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+            return \ZF\Error\Page::pageNotFound($this->getRequest());
         }
 
         if (!$moveUpMenu = $em->getRepository('\ZF\Entities\Slider')->getByPosition( ($Slider->getPosition() + 1) ))
         {
-            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+            return \ZF\Error\Page::pageNotFound($this->getRequest());
         }
 
         $moveUpMenu->setPosition($Slider->getPosition());

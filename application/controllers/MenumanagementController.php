@@ -66,14 +66,14 @@ class MenumanagementController extends \ZF\Controller\Managment
     {
         if (!$ID = $this->getRequest()->getParam('ID', false))
         {
-            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+            return \ZF\Error\Page::pageNotFound($this->getRequest());
         }
 
         $em = \Zend_Registry::get('doctrine')->getEntityManager();
 
         if ( !$Menu = $em->find('\ZF\Entities\Menu', (int)$ID) )
         {
-            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+            return \ZF\Error\Page::pageNotFound($this->getRequest());
         }
 
         $this->view->form = new \Application_Form_Menu(null, "edit");
@@ -119,14 +119,14 @@ class MenumanagementController extends \ZF\Controller\Managment
     {
         if (!$ID = $this->getRequest()->getParam('ID', false))
         {
-            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+            return \ZF\Error\Page::pageNotFound($this->getRequest());
         }
 
         $em = \Zend_Registry::get('doctrine')->getEntityManager();
 
         if ( !$Menu = $em->find('\ZF\Entities\Menu', (int)$ID) )
         {
-            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+            return \ZF\Error\Page::pageNotFound($this->getRequest());
         }
 
         $em->getRepository('\ZF\Entities\Menu')->removeMenu($Menu);
@@ -140,19 +140,19 @@ class MenumanagementController extends \ZF\Controller\Managment
     {
         if (!$ID = $this->getRequest()->getParam('ID', false))
         {
-            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+            return \ZF\Error\Page::pageNotFound($this->getRequest());
         }
 
         $em = \Zend_Registry::get('doctrine')->getEntityManager();
 
         if ( !$Menu = $em->find('\ZF\Entities\Menu', (int)$ID) )
         {
-            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+            return \ZF\Error\Page::pageNotFound($this->getRequest());
         }
 
         if (!$moveDownMenu = $em->getRepository('\ZF\Entities\Menu')->getByPosition( ($Menu->getPosition() - 1) ))
         {
-            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+            return \ZF\Error\Page::pageNotFound($this->getRequest());
         }
 
         $moveDownMenu->setPosition($Menu->getPosition());
@@ -168,19 +168,19 @@ class MenumanagementController extends \ZF\Controller\Managment
     {
         if (!$ID = $this->getRequest()->getParam('ID', false))
         {
-            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+            return \ZF\Error\Page::pageNotFound($this->getRequest());
         }
 
         $em = \Zend_Registry::get('doctrine')->getEntityManager();
 
         if ( !$Menu = $em->find('\ZF\Entities\Menu', (int)$ID) )
         {
-            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+            return \ZF\Error\Page::pageNotFound($this->getRequest());
         }
 
         if (!$moveUpMenu = $em->getRepository('\ZF\Entities\Menu')->getByPosition( ($Menu->getPosition() + 1) ))
         {
-            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+            return \ZF\Error\Page::pageNotFound($this->getRequest());
         }
 
         $moveUpMenu->setPosition($Menu->getPosition());

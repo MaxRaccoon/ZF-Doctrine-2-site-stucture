@@ -39,12 +39,12 @@ class Managment extends \Zend_Controller_Action
     {
         if (!$ID = $this->getRequest()->getParam('ID', false))
         {
-            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+            return \ZF\Error\Page::pageNotFound($this->getRequest());
         }
 
         if ( !$object = $entity->findOneById($ID) )
         {
-            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+            return \ZF\Error\Page::pageNotFound($this->getRequest());
         }
 
         //Clear relations

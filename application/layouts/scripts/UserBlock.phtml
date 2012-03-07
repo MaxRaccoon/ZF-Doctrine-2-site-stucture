@@ -1,1 +1,8 @@
-Hello, <?php echo $this->user->getFullName();?>. Do you want, <a href="<?php echo $this->url(array('controller'=>'auth','action'=>'logout'), 'logout');?>">logout</a>?
+    <li class="text">
+        <a>Hello, <?php echo $this->user->getFullName();?></a>
+    </li>
+    <li>
+        <a href="<?php echo $this->url(array('controller'=>'auth','action'=>'logout'), 'logout');?>">
+            Logout
+        </a>
+    </li>

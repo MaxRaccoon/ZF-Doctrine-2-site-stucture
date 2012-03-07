@@ -27,14 +27,14 @@ class UsermanagementController extends \ZF\Controller\Managment
     {
         if (!$ID = $this->getRequest()->getParam('ID', false))
         {
-            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+            return \ZF\Error\Page::pageNotFound($this->getRequest());
         }
 
         $em = \Zend_Registry::get('doctrine')->getEntityManager();
 
         if ( !$user = $em->find('\ZF\Entities\User', (int)$ID) )
         {
-            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+            return \ZF\Error\Page::pageNotFound($this->getRequest());
         }
 
         $this->view->form = new \Application_Form_User(null, "edit");
@@ -141,12 +141,12 @@ class UsermanagementController extends \ZF\Controller\Managment
         //Spacial action to user entity, in other controllers use parent::delete($entity);
         if (!$ID = $this->getRequest()->getParam('ID', false))
         {
-            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+            return \ZF\Error\Page::pageNotFound($this->getRequest());
         }
 
         if ( !$object = $entity->findOneById($ID) )
         {
-            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+            return \ZF\Error\Page::pageNotFound($this->getRequest());
         }
 
         $em = \Zend_Registry::get('doctrine')->getEntityManager();

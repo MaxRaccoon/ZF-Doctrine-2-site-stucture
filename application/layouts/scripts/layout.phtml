@@ -11,8 +11,10 @@ echo $this->doctype('XHTML1_TRANSITIONAL');
     <?php echo $this->headTitle() . "\n"; ?>
     <?php
         $this->headLink()->appendStylesheet('/css/style.css');
+        $this->headLink()->prependStylesheet('/js/bootstrap/css/bootstrap.min.css');
 
         $this->headScript()->appendFile('/js/script.js');
+        $this->headScript()->prependFile('/js/bootstrap/js/bootstrap.min.js');
         $this->headScript()->prependFile('/js/jquery-1.7.1.min.js');
    	?>
    	<?php echo $this->headLink() . "\n"; ?>
@@ -21,26 +23,41 @@ echo $this->doctype('XHTML1_TRANSITIONAL');
 </head>
 <body>
 
-
-    <div class="user_block">
-        <?php echo $this->AuthBlock();?>
-    </div>
-
-    <div class="menu">
-        <?php echo $this->navigation()->menu($this->mainMenu)->setPartial('mainMenu.phtml'); ?>
-    </div>
-
-    <div class="content">
-        <?php echo $this->content; ?>
-    </div>
-
-    <div id="footer">
-        <?php if ($this->managementMenu) { ?>
-        <div class="managementMenu">
-            <?php echo $this->navigation()->menu($this->managementMenu)->setPartial('bottomMenu.phtml'); ?>
+    <!-- Navigation bar -->
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="/"><?php echo $this->SiteName;?></a>
+                <?php echo $this->navigation()->menu($this->mainMenu)->setPartial('mainMenu.phtml'); ?>
+                <ul class="nav pull-right userblock">
+                    <?php echo $this->AuthBlock();?>
+                </ul>
+            </div>
         </div>
-        <?php } ?>
     </div>
+    <!-- ENDOF: Navigation bar -->
+
+    <!-- Main container -->
+    <div class="container">
+
+        <div id="content">
+            <?php echo $this->content; ?>
+        </div>
+        
+    </div>
+    <!-- ENDOF: Main container -->
+
+    <!-- footer -->
+    <div class="container">
+        <div id="footer">
+            <?php if ($this->managementMenu) { ?>
+            <div class="managementMenu">
+                <?php echo $this->navigation()->menu($this->managementMenu)->setPartial('bottomMenu.phtml'); ?>
+            </div>
+            <?php } ?>
+        </div>
+    </div>
+    <!-- ENDOF: footer -->
 
 </body>
 </html>

@@ -44,12 +44,12 @@ class AjaxController extends Zend_Controller_Action
     {
         if (!$for = $this->getRequest()->getParam('for', false))
         {
-            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+            return \ZF\Error\Page::pageNotFound($this->getRequest());
         }
 
         if (!$dir = $this->getRequest()->getParam('dir', false))
         {
-            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+            return \ZF\Error\Page::pageNotFound($this->getRequest());
         }
 
         Zend_Controller_Action_HelperBroker::resetHelpers();

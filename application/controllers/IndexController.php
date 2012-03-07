@@ -11,7 +11,8 @@ class IndexController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        // action body
+        $this->view->title = $this->view->translate('Welcome to Default site on RaccoonZF!');
+        $this->view->content = $this->view->render('index/index.phtml');
     }
 
     /**

@@ -38,15 +38,13 @@ class Plugin extends \Zend_Controller_Plugin_Abstract
         //Resource not found
         if (!$acl->has($controller))
         {
-            $redirector = \Zend_Controller_Action_HelperBroker::getStaticHelper('redirector');
-            $redirector->gotoUrl('/404.htm');
+            return \ZF\Error\Page::pageNotFound($request);
         }
 
         //Cheek allow, and redirect if access deny
         if (!$acl->isAllowed($role, $controller, $action->getName() ))
         {
-            $redirector = \Zend_Controller_Action_HelperBroker::getStaticHelper('redirector');
-            $redirector->gotoUrl('/deny.html');
+            return \ZF\Error\Page::accessDeny($request);
         }
         else
         {

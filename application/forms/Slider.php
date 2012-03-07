@@ -23,20 +23,14 @@ class Application_Form_Slider extends Zend_Form
             'required'    => true,
             'label'       => $this->getView()->translate('Title'),
             'maxlength'   => '45',
-        	'class'		  => 'text',
-            'validators'  => array(
-                array('Alnum', true, array(true)),
-             ),
+        	'class'		  => 'text'
         ));
 
         $text = new Zend_Form_Element_Text('text', array(
             'required'    => true,
             'label'       => $this->getView()->translate('Text'),
             'maxlength'   => '45',
-        	'class'		  => 'text',
-            'validators'  => array(
-                array('Alnum', true, array(true)),
-             ),
+        	'class'		  => 'text'
         ));
 
         $submit = new Zend_Form_Element_Submit('submit', array(

@@ -1,6 +1,7 @@
 <?php
 namespace ZF\Entities;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Picture
@@ -34,13 +35,6 @@ class Picture
     private $dtAdd;
 
     /**
-     * @var integer $authorId
-     *
-     * @ORM\Column(name="author_id", type="integer", nullable=false)
-     */
-    private $authorId;
-
-    /**
      * @var text $description
      *
      * @ORM\Column(name="description", type="text", nullable=true)
@@ -61,6 +55,22 @@ class Picture
      */
     private $isDeleted;
 
+    /**
+     * @var User
+     *
+     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="author_id", referencedColumnName="id", unique=true)
+     * })
+     */
+    private $author;
+
+
+    function __construct()
+    {
+        $this->author = new ArrayCollection();
+        $this->isDeleted(false);
+    }    
 
     /**
      * Get id
@@ -114,28 +124,6 @@ class Picture
     public function getDtAdd()
     {
         return $this->dtAdd;
-    }
-
-    /**
-     * Set authorId
-     *
-     * @param integer $authorId
-     * @return Picture
-     */
-    public function setAuthorId($authorId)
-    {
-        $this->authorId = $authorId;
-        return $this;
-    }
-
-    /**
-     * Get authorId
-     *
-     * @return integer 
-     */
-    public function getAuthorId()
-    {
-        return $this->authorId;
     }
 
     /**
@@ -202,5 +190,27 @@ class Picture
     public function getIsDeleted()
     {
         return $this->isDeleted;
+    }
+
+    /**
+     * Set author
+     *
+     * @param User $author
+     * @return Picture
+     */
+    public function setAuthor(\User $author = null)
+    {
+        $this->author = $author;
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return User 
+     */
+    public function getAuthor()
+    {
+        return $this->author;
     }
 }

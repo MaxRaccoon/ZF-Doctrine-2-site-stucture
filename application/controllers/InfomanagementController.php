@@ -60,14 +60,14 @@ class InfomanagementController extends \ZF\Controller\Managment
     {
         if (!$ID = $this->getRequest()->getParam('ID', false))
         {
-            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+            return \ZF\Error\Page::pageNotFound($this->getRequest());
         }
 
         $em = \Zend_Registry::get('doctrine')->getEntityManager();
 
         if ( !$Info = $em->find('\ZF\Entities\Info', (int)$ID) )
         {
-            $this->_redirect($this->view->url(array('controller'=>'error','action'=>'notfound'), 'page_not_found'));
+            return \ZF\Error\Page::pageNotFound($this->getRequest());
         }
 
         $this->view->form = new \Application_Form_Info(null, "edit");

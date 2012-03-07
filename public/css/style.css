@@ -1,3 +1,19 @@
+#loginform{margin:0 0 0 0;}
+    #loginform input{
+        font-size:0.8em;
+        height: 12px;
+        width: 120px;
+        margin: 8px 0 0 0;
+    }
+        #loginform input.button{height:20px;width:80px;}
+
+.navbar .userblock > li > a.btn-mini{
+    line-height:14px;
+    padding: 2px 6px;
+}
+
+#content{padding-bottom:40px;}
+
 div.button
 {
     border:1px solid gray;

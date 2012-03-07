@@ -199,5 +199,19 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         }
         return $auth;
     }
+
+    /**
+     * Load site info
+     * @return void
+     */
+    public function _initInfo()
+    {
+        $em = \Zend_Registry::get('doctrine')->getEntityManager();
+        $view = $this->getResource('view');
+        $info = $em->getRepository('\ZF\Entities\Info')->findOneByInfoKey("SiteName");
+        $view->SiteName = $info->getInfoValue();
+        $info = $em->getRepository('\ZF\Entities\Info')->findOneByInfoKey("SiteNameShort");
+        $view->SiteNameShort = $info->getInfoValue();
+    }    
 }
 
