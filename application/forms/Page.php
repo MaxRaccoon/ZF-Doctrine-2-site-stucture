@@ -64,10 +64,7 @@ class Application_Form_Page extends Zend_Form
         $text = new Zend_Form_Element_Textarea('text', array(
             'required'    => true,
             'label'       => $this->getView()->translate('Text'),
-        	'class'		  => 'text',
-            'validators'  => array(
-                array('Alnum', true, array(true)),
-             ),
+        	'class'		  => 'text elrt_full'
         ));
 
         $submit = new Zend_Form_Element_Submit('submit', array(
@@ -75,6 +72,6 @@ class Application_Form_Page extends Zend_Form
         	'class'=> 'submit'
         ));
 
-        $this->addElements(array($title, $url, $generateURL, $text, $meta_tags, $tags, $submit));
+        $this->addElements(array($title, $url, $generateURL, $meta_tags, $tags, $text, $submit));
   }
 }
